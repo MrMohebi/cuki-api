@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header('content-type: application/json; charset=utf-8');
 
 
-if(strlen($_POST['phone']) > 10 && $_POST['phone'][0] == 0 && strlen($_POST['verification_code']) == 6){
+if(strlen($_POST['phone']) > 10 && $_POST['phone'][0] == 0 && strlen($_POST['verification_code']) >=3){
     include_once 'db/db.config.php';
 
     $phone =  mysqli_real_escape_string($conn_database_ours, $_POST['phone']);
