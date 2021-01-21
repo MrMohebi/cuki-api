@@ -9,8 +9,22 @@ class MysqldbAccess{
         $this->dbConn = $dbConn;
     }
 
+    public function isTokenValid ($token, $tableName){
+        $sqlCommand = "SELECT * FROM `$tableName` WHERE `token`='$token';";
+        $isValid = false;
+        if ($result = mysqli_query($this->dbConn, $sqlCommand)) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $isValid = true;
+            }
+        }else{
+            return false;
+        }
+        return $isValid;
+    }
+
+
     public function noDuplicate($filedArr, $tableName){
-        $sqlCommand = "SELECT * FROM $tableName WHERE ";
+        $sqlCommand = "SELECT * FROM `$tableName` WHERE ";
         foreach ($filedArr as $key=>$value){
             $sqlCommand .= " `$key`='$value' OR";
         }
@@ -29,7 +43,7 @@ class MysqldbAccess{
     }
 
     public function select($selector, $tableName, $condition = false , $orderedBy = false ){
-        $sqlCommand = "SELECT $selector FROM $tableName ";
+        $sqlCommand = "SELECT $selector FROM `$tableName` ";
         if($condition)
             $sqlCommand .= " WHERE $condition ";
         if ($orderedBy)
@@ -52,7 +66,7 @@ class MysqldbAccess{
         if(!(count($keyValObject) > 0))
             return false;
 
-        $sqlCommand = "INSERT INTO $tableName  ";
+        $sqlCommand = "INSERT INTO `$tableName`  ";
         $keys = "(";
         $values = " VALUES ( ";
         foreach ($keyValObject as $key=>$val){
