@@ -8,8 +8,6 @@ if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(
     include_once "DataAccess/MysqldbAccess.php";
     include_once "DataAccess/db.config.php";
 
-
-
     $connOurs = MysqlConfig::connOurs();
     $oursAccess = new MysqldbAccess($connOurs);
 
@@ -28,7 +26,6 @@ if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(
     $catEnglishName = mysqli_real_escape_string($connRes, $_POST['catEnglishName']);
     $logo = mysqli_real_escape_string($connRes, $_POST['logo']);
     $rank = mysqli_real_escape_string($connRes, $_POST['rank']);
-
 
 
     $flag_duplicate = $resAccess->noDuplicate(array(
