@@ -70,7 +70,7 @@ class MysqldbAccess{
         }else{
             return false;
         }
-        if(count($queryResult) == 1){
+        if(count($queryResult) == 1 && count($queryResult[0]) == 1){
             return $queryResult[0][$selector];
         }
         return count($queryResult) > 0 ? $queryResult :  false ;
