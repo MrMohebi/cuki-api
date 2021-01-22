@@ -4,9 +4,11 @@ header("Access-Control-Allow-Origin: *");
 header('content-type: application/json; charset=utf-8');
 
 
-if(($_POST['englishName'] != "")&&(strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(strlen($_POST['logo'])>2)){
+if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(strlen($_POST['logo'])>2)){
     include_once "DataAccess/MysqldbAccess.php";
     include_once "DataAccess/db.config.php";
+
+
 
     $connOurs = MysqlConfig::connOurs();
     $oursAccess = new MysqldbAccess($connOurs);
@@ -19,7 +21,7 @@ if(($_POST['englishName'] != "")&&(strlen($_POST['catPersianName'])>2)&&(strlen(
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid or you dont have access in this action")));
     }
 
-    $connRes = MysqlConfig::connRes($_POST['englishName']);
+    $connRes = MysqlConfig::connRes($oursAccess->select('english_name','restaurants',"`token`='".$_POST['token']."'"));
     $resAccess = new MysqldbAccess($connRes);
 
     $catPersianName = mysqli_real_escape_string($connRes, $_POST['catPersianName']);
