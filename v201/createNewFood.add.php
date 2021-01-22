@@ -28,7 +28,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
     $details = mysqli_real_escape_string($connRes, $_POST['details']);
     $price = ($_POST['price'] > 900) ? mysqli_real_escape_string($connRes, $_POST['price']) : 100000;
     $status = (strlen($_POST['status']) > 3) ? mysqli_real_escape_string($connRes, $_POST['status']) : 'out of stock';
-    $delivery_time = ($_POST['delivery_time'] > 0) ? mysqli_real_escape_string($connRes, $_POST['delivery_time']) : 0;
+    $delivery_time = ($_POST['delivery_time'] > 0) ? mysqli_real_escape_string($connRes, $_POST['deliveryTime']) : 0;
     $thumbnail = (strlen($_POST['thumbnail']) > 0) ? mysqli_real_escape_string($connRes, $_POST['thumbnail']) : 'http://dl.mmmohebi.ir/sampleAssets/sampleThumbnail_96x96.png';
 
 
@@ -39,6 +39,9 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
 
 
     $groupTableFullInfo = $resAccess->select("*", "food_group", "`english_name`='$group'");
+    if(count($groupTableFullInfo)<1)
+        exit(json_encode(array('statusCode'=>400, "details"=>"group name is not available")));
+
     $groupInfo = array(
         "englishName"=>$groupTableFullInfo['english_name'],
         "persianName"=>$groupTableFullInfo['persian_name'],
