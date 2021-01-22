@@ -11,6 +11,14 @@ if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishNam
     $connOurs = MysqlConfig::connOurs();
     $oursAccess = new MysqldbAccess($connOurs);
 
+    // is token valid and has access
+    if(!(
+    $oursAccess->isTokenValid($_POST['token'], "admins")&&
+    $oursAccess->hasTokenAccess($_POST['token'], "admins", array("admin"))
+    )){
+        exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid or you dont have access in this action")));
+    }
+
     $token = mysqli_real_escape_string($connOurs, $_POST['token']);
     $username = mysqli_real_escape_string($connOurs, $_POST['username']);
     $password = mysqli_real_escape_string($connOurs, $_POST['password']);
