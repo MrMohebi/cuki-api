@@ -8,6 +8,17 @@ if(($_POST['englishName'] != "")&&(strlen($_POST['catPersianName'])>2)&&(strlen(
     include_once "DataAccess/MysqldbAccess.php";
     include_once "DataAccess/db.config.php";
 
+    $connOurs = MysqlConfig::connOurs();
+    $oursAccess = new MysqldbAccess($connOurs);
+
+    // is token valid and has access
+    if(!(
+        $oursAccess->isTokenValid($_POST['token'], "admins")&&
+        $oursAccess->hasTokenAccess($_POST['token'], "admins", array("admin"))
+    )){
+        exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid or you dont have access in this action")));
+    }
+
     $connRes = MysqlConfig::connRes($_POST['englishName']);
     $resAccess = new MysqldbAccess($connRes);
 
