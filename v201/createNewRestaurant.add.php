@@ -138,11 +138,23 @@ function createTables($dbConn){
             PRIMARY KEY (`restaurant_customers_id`)
         );";
 
+    $sql_food_group = "CREATE TABLE `food_group`
+        (
+            `food_group_id`      int  AUTO_INCREMENT ,
+            `persian_name`          tinytext  ,
+            `english_name`         tinytext  ,
+            `logo`       tinytext  ,
+            `status`       tinytext  ,
+            `rank`         int  ,
+            PRIMARY KEY (`food_group_id`)
+        );";
+
     if(
         mysqli_query($dbConn, $sql_food) &&
         mysqli_query($dbConn, $sql_orders) &&
         mysqli_query($dbConn, $sql_info) &&
-        mysqli_query($dbConn, $sql_restaurant_customers)
+        mysqli_query($dbConn, $sql_restaurant_customers)&&
+        mysqli_query($dbConn, $sql_food_group)
     ){
         return true;
     }else{
