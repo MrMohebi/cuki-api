@@ -71,7 +71,7 @@ class MysqldbAccess{
             return false;
         }
         if(count($queryResult) == 1){
-            return $queryResult[0];
+            return $queryResult[0][$selector];
         }
         return count($queryResult) > 0 ? $queryResult :  false ;
     }
