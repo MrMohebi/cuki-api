@@ -8,6 +8,19 @@ class MysqldbAccess{
         $this->dbConn = $dbConn;
     }
 
+    public function hasTokenAccess ($token, $tableName, $accessiblePosition){
+        $sqlCommand = "SELECT * FROM `$tableName` WHERE `token`='$token';";
+        $position = "notAssigned";
+        if ($result = mysqli_query($this->dbConn, $sqlCommand)) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $position = $row["position"];
+            }
+        }else{
+            return false;
+        }
+        return in_array($position, $accessiblePosition);
+    }
+
     public function isTokenValid ($token, $tableName){
         $sqlCommand = "SELECT * FROM `$tableName` WHERE `token`='$token';";
         $isValid = false;
