@@ -13,8 +13,8 @@ if(($_POST['englishName'] != "")&&(strlen($_POST['catPersianName'])>2)&&(strlen(
 
     // is token valid and has access
     if(!(
-        $oursAccess->isTokenValid($_POST['token'], "admins")&&
-        $oursAccess->hasTokenAccess($_POST['token'], "admins", array("admin"))
+        $oursAccess->isTokenValid($_POST['token'], "restaurants")&&
+        $oursAccess->hasTokenAccess($_POST['token'], "restaurants", array("admin"))
     )){
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid or you dont have access in this action")));
     }
