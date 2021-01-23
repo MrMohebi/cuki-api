@@ -59,7 +59,7 @@ class MysqldbAccess{
         if($condition)
             $sqlCommand .= " WHERE $condition ";
         if ($orderedBy)
-            $sqlCommand .= " ORDER BY $condition ";
+            $sqlCommand .= " ORDER BY $orderedBy ";
         $sqlCommand .= ";";
 
         $queryResult = array();
