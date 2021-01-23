@@ -7,7 +7,7 @@ if(strlen($_POST['phone']) > 10 && $_POST['phone'][0] == 0){
     include_once 'db/db.config.php';
     include_once 'smsService/smsKinds.php';
 
-    $randomNum = rand(111111,999999);
+    $randomNum = rand(1111,9999);
     $userToken = bin2hex(openssl_random_pseudo_bytes(32));
     $phone =  mysqli_real_escape_string($conn_database_ours, $_POST['phone']);
 
