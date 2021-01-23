@@ -33,7 +33,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
 
 
     $details_array = array_values(array_filter(array_map('trim', explode("+", str_replace(array("\n", "\r"), '', $details)))));
-    $details_array_str = json_encode($details_array);
+    $details_array_str = characterFixer(json_encode($details_array));
 
 
 
@@ -42,6 +42,8 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
     if(count($groupTableFullInfo)<1)
         exit(json_encode(array('statusCode'=>400, "details"=>"group name is not available")));
 
+
+
     $groupInfo = array(
         "englishName"=>$groupTableFullInfo['english_name'],
         "persianName"=>$groupTableFullInfo['persian_name'],
@@ -49,7 +51,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
         "status"=>$groupTableFullInfo['status'],
         "rank"=>$groupTableFullInfo['rank'],
     );
-    $groupInfoStr = json_encode($groupInfo);
+    $groupInfoStr = characterFixer(json_encode($groupInfo));
 
     $flag_duplicate = $resAccess->noDuplicate(array(
         "name"=>$name,
@@ -80,4 +82,10 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
 
 }else{
     exit(json_encode(array('statusCode'=>401)));
+}
+
+function characterFixer($str){
+    return preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+        return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UTF-16BE');
+    }, $str);
 }
