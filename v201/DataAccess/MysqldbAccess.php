@@ -40,7 +40,7 @@ class MysqldbAccess{
         foreach ($filedArr as $key=>$value){
             $sqlCommand .= " `$key`='$value' OR";
         }
-        substr($sqlCommand,0, -2);
+        $sqlCommand = substr($sqlCommand,0, -2);
         $sqlCommand .= ";";
 
         $duplicate = false;
