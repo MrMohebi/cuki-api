@@ -87,7 +87,7 @@ function createTables($dbConn){
             `photos`        mediumtext  ,
             `related_main_name`          tinytext  ,
             `related_price_range`          tinytext  , 
-            `related_photo`          tinytext  ,            
+            `related_thumbnail`          tinytext  ,            
             `modified_date`          bigint  ,
             PRIMARY KEY (`foods_id`)
         );";
