@@ -26,7 +26,9 @@ if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(
     $catEnglishName = mysqli_real_escape_string($connRes, $_POST['catEnglishName']);
     $logo = mysqli_real_escape_string($connRes, $_POST['logo']);
     $rank = mysqli_real_escape_string($connRes, $_POST['rank']);
-
+    $type = mysqli_real_escape_string($connRes, $_POST['type']);
+    $resEnglishName = mysqli_real_escape_string($connRes, $_POST['resEnglishName']);
+    $averageColor = mysqli_real_escape_string($connRes, $_POST['averageColor']);
 
     $flag_duplicate = $resAccess->noDuplicate(array(
         "persian_name"=>$catPersianName,
@@ -41,6 +43,9 @@ if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(
         "english_name"=>$catEnglishName,
         "logo"=>$logo,
         "status"=>"active",
+        "type"=>$type,
+        "res_english_name"=>$resEnglishName,
+        "average_color"=>$averageColor
     );
 
     if($resAccess->insert("food_group", $insertNewCatParams)){

@@ -51,6 +51,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
         "status"=>$groupTableFullInfo['status'],
         "rank"=>$groupTableFullInfo['rank'],
         "averageColor"=>$groupTableFullInfo['average_color'],
+        "type"=>$groupTableFullInfo['type'],
     );
     $groupInfoStr = characterFixer(json_encode($groupInfo));
 
