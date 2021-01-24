@@ -19,18 +19,16 @@ if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid or you dont have access in this action")));
     }
 
-    $connRes = MysqlConfig::connRes($oursAccess->select('english_name','restaurants',"`token`='".$_POST['token']."'"));
-    $resAccess = new MysqldbAccess($connRes);
 
-    $catPersianName = mysqli_real_escape_string($connRes, $_POST['catPersianName']);
-    $catEnglishName = mysqli_real_escape_string($connRes, $_POST['catEnglishName']);
-    $logo = mysqli_real_escape_string($connRes, $_POST['logo']);
-    $rank = mysqli_real_escape_string($connRes, $_POST['rank']);
-    $type = mysqli_real_escape_string($connRes, $_POST['type']);
-    $resEnglishName = mysqli_real_escape_string($connRes, $_POST['resEnglishName']);
-    $averageColor = mysqli_real_escape_string($connRes, $_POST['averageColor']);
+    $catPersianName = mysqli_real_escape_string($connOurs, $_POST['catPersianName']);
+    $catEnglishName = mysqli_real_escape_string($connOurs, $_POST['catEnglishName']);
+    $logo = mysqli_real_escape_string($connOurs, $_POST['logo']);
+    $rank = mysqli_real_escape_string($connOurs, $_POST['rank']);
+    $type = mysqli_real_escape_string($connOurs, $_POST['type']);
+    $resEnglishName = mysqli_real_escape_string($connOurs, $_POST['resEnglishName']);
+    $averageColor = mysqli_real_escape_string($connOurs, $_POST['averageColor']);
 
-    $flag_duplicate = $resAccess->noDuplicate(array(
+    $flag_duplicate = $oursAccess->noDuplicate(array(
         "persian_name"=>$catPersianName,
         "english_name"=>$catEnglishName,
     ), "food_group");
@@ -48,7 +46,7 @@ if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(
         "average_color"=>$averageColor
     );
 
-    if($resAccess->insert("food_group", $insertNewCatParams)){
+    if($oursAccess->insert("food_group", $insertNewCatParams)){
         exit(json_encode(array('statusCode'=>200)));
     }else{
         exit(json_encode(array('statusCode'=>500, "details"=>"some thing went wrong during creating new category on server")));
