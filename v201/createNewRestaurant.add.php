@@ -157,6 +157,7 @@ function createTables($dbConn){
             `logo`       tinytext  ,
             `status`       tinytext  ,
             `rank`         int  ,
+            `average_color`         tinytext  ,
             PRIMARY KEY (`food_group_id`)
         );";
 
