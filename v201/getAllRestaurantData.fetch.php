@@ -14,7 +14,7 @@ if(strlen($_POST['englishName']) > 2){
     $resAccess = new MysqldbAccess($connRes);
 
 
-    $foodListArr = getFoodList($resAccess,$connOur);
+    $foodListArr = getFoodList($resAccess,$ourAccess);
     $infoListArr = getResInfo($resAccess);
 
 
@@ -45,7 +45,7 @@ function getFoodList($resAccess, $ourAccess){
         }
         $group=array();
         foreach ($groupsInfo as $eGroup){
-            if($eGroup["englishName"] == $foodsList[$i]['group'])
+            if($eGroup["english_name"] == $foodsList[$i]['group'])
                 $group = $eGroup;
         }
 
