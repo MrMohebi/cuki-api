@@ -42,18 +42,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
     if(count($groupTableFullInfo)<1)
         exit(json_encode(array('statusCode'=>400, "details"=>"group name is not available")));
 
-
-
-    $groupInfo = array(
-        "englishName"=>$groupTableFullInfo['english_name'],
-        "persianName"=>$groupTableFullInfo['persian_name'],
-        "logo"=>$groupTableFullInfo['logo'],
-        "status"=>$groupTableFullInfo['status'],
-        "rank"=>$groupTableFullInfo['rank'],
-        "averageColor"=>$groupTableFullInfo['average_color'],
-        "type"=>$groupTableFullInfo['type'],
-    );
-    $groupInfoStr = characterFixer(json_encode($groupInfo));
+    $groupName = $group;
 
     $flag_duplicate = $resAccess->noDuplicate(array(
         "name"=>$name,
@@ -64,7 +53,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
 
     $insertNewFoodParams = array(
         "name"=>$name,
-        "group"=>$groupInfoStr,
+        "group"=>$groupName,
         "details"=>$details_array_str,
         "price"=>$price,
         "status"=>$status,
