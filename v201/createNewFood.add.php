@@ -42,8 +42,6 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
     if(count($groupTableFullInfo)<1)
         exit(json_encode(array('statusCode'=>400, "details"=>"group name is not available")));
 
-    $groupName = $group;
-
     $flag_duplicate = $resAccess->noDuplicate(array(
         "name"=>$name,
         ), "foods");
@@ -53,7 +51,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
 
     $insertNewFoodParams = array(
         "name"=>$name,
-        "group"=>$groupName,
+        "group"=>$group,
         "details"=>$details_array_str,
         "price"=>$price,
         "status"=>$status,
