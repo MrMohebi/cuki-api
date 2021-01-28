@@ -5,8 +5,8 @@ header('content-type: application/json; charset=utf-8');
 
 
 if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(strlen($_POST['logo'])>2)){
-    include_once "DataAccess/MysqldbAccess.php";
-    include_once "DataAccess/db.config.php";
+    include_once "../DataAccess/MysqldbAccess.php";
+    include_once "../DataAccess/db.config.php";
 
     $connOurs = MysqlConfig::connOurs();
     $oursAccess = new MysqldbAccess($connOurs);

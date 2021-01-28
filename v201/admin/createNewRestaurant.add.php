@@ -5,8 +5,8 @@ header('content-type: application/json; charset=utf-8');
 
 
 if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishName'] != "")){
-    include_once "DataAccess/MysqldbAccess.php";
-    include_once "DataAccess/db.config.php";
+    include_once "../DataAccess/MysqldbAccess.php";
+    include_once "../DataAccess/db.config.php";
 
     $connOurs = MysqlConfig::connOurs();
     $oursAccess = new MysqldbAccess($connOurs);
