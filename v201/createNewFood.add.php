@@ -29,7 +29,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
     $price = ($_POST['price'] > 900) ? mysqli_real_escape_string($connRes, $_POST['price']) : 100000;
     $status = (strlen($_POST['status']) > 3) ? mysqli_real_escape_string($connRes, $_POST['status']) : 'out of stock';
     $delivery_time = ($_POST['delivery_time'] > 0) ? mysqli_real_escape_string($connRes, $_POST['deliveryTime']) : 0;
-    $thumbnail = (strlen($_POST['thumbnail']) > 0) ? mysqli_real_escape_string($connRes, $_POST['thumbnail']) : 'http://dl.mmmohebi.ir/sampleAssets/sampleThumbnail_96x96.png';
+    $thumbnail = (strlen($_POST['thumbnail']) > 0) ? mysqli_real_escape_string($connRes, $_POST['thumbnail']) : 'https://dl.cuki.ir/sampleAssets/sampleThumbnail_96x96.png';
 
 
     $details_array = array_values(array_filter(array_map('trim', explode("+", str_replace(array("\n", "\r"), '', $details)))));
