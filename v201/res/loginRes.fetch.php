@@ -37,5 +37,5 @@ if(isset($_POST['username']) && (strlen($_POST['password']) > 7)){
 
 
 }else{
-    exit(json_encode(array('statusCode'=>400)));
+    exit(json_encode(array('statusCode'=>400, 'details'=>"wrong inputs!")));
 }
