@@ -74,6 +74,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishNam
 function createTables($dbConn){
     $sql_food = "CREATE TABLE `foods`(
             `foods_id`      int  AUTO_INCREMENT ,
+            `counter_app_food_id`              tinytext  ,
             `name`          tinytext  ,
             `group`         tinytext  ,
             `details`       text  ,                
@@ -100,6 +101,7 @@ function createTables($dbConn){
             `payment_status` tinytext  ,
             `delivery_price` int  ,
             `order_status`   tinytext  ,
+            `counter_app_status`              tinytext  ,
             `address`        text  ,
             `details`        mediumtext  ,        
             `payment_id`     text  ,
