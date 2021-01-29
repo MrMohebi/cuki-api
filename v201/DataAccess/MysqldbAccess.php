@@ -8,6 +8,62 @@ class MysqldbAccess{
         $this->dbConn = $dbConn;
     }
 
+
+
+    // to update all rows at once set condition as a true statement like: 1=1
+    public function updateAppendToList ($tableName, $newKeyAppendValObject, $condition){
+        $countExceptions = 0;
+        $selectedData = self::select("*", $tableName, $condition);
+
+        // find primary key
+        $specificId = null;
+        foreach (array_keys($selectedData[0]) as $eFieldKey){
+            $split = explode("_", $eFieldKey);
+            if($split[count($split)-1] == "id"){
+                $specificId = $eFieldKey;
+                break;
+            }
+        }
+
+        foreach ($selectedData as $eData){
+            $sqlCommand = "UPDATE $tableName SET ";
+            foreach ($newKeyAppendValObject as $key=>$val){
+                $previousData = json_decode($eData[$key], true);
+                // if its not array, convert it to an array then append to its end
+                $previousData = is_array($previousData) ? $previousData : ($previousData !== null ? $previousData :array());
+                array_push($previousData, $val);
+                $newData = json_encode($previousData);
+                $sqlCommand .= " `$key`='$newData', ";
+            }
+            $sqlCommand = rtrim($sqlCommand, ", ");
+            $sqlCommand .= " WHERE `$specificId`='$eData[$specificId]' ;";
+            if (!($result = mysqli_query($this->dbConn, $sqlCommand))) {
+                $countExceptions +=1;
+            }
+        }
+        return $countExceptions == 0 ? true : $countExceptions;
+    }
+
+
+
+    // to update all rows at once set condition as a true statement like: 1=1
+    public function update ($tableName, $newKeyValObject, $condition){
+        $sqlCommand = "UPDATE $tableName SET ";
+        foreach ($newKeyValObject as $key=>$val){
+            $sqlCommand .= " `$key`='$val', ";
+        }
+        $sqlCommand = rtrim($sqlCommand, ", ");
+
+        $sqlCommand .= " WHERE $condition ;";
+
+        if ($result = mysqli_query($this->dbConn, $sqlCommand)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
     public function hasTokenAccess ($token, $tableName, $accessiblePosition){
         $sqlCommand = "SELECT * FROM `$tableName` WHERE `token`='$token';";
         $position = "notAssigned";
