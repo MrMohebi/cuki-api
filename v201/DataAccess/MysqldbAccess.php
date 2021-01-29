@@ -15,6 +15,8 @@ class MysqldbAccess{
         $countExceptions = 0;
         $selectedData = self::select("*", $tableName, $condition);
 
+        $selectedData = array_key_exists("0",$selectedData) ? $selectedData[0] : array($selectedData);
+
         // find primary key
         $specificId = null;
         foreach (array_keys($selectedData[0]) as $eFieldKey){
@@ -30,7 +32,7 @@ class MysqldbAccess{
             foreach ($newKeyAppendValObject as $key=>$val){
                 $previousData = json_decode($eData[$key], true);
                 // if its not array, convert it to an array then append to its end
-                $previousData = is_array($previousData) ? $previousData : ($previousData !== null ? $previousData :array());
+                $previousData = is_array($previousData) ? $previousData : ($previousData !== null ? array($previousData) :array());
                 array_push($previousData, $val);
                 $newData = json_encode($previousData);
                 $sqlCommand .= " `$key`='$newData', ";
