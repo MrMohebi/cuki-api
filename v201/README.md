@@ -102,3 +102,18 @@
 >   {"statusCode": "[code]"}
 >   ```
 <hr>
+
+> ### ```api\v201\getOrderByTrackingId.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **englishName**
+>   - **trackingId** _number or list of numbers_
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": "[order info or List of orders info]"
+>   }
+>   ```
+<hr>
