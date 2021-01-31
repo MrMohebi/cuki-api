@@ -1,4 +1,4 @@
-##Restaurants:
+##Clients:
 
 > ### ```api\v201\getAllRestaurantData.fetch.php``` ``POST``
 >
