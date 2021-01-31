@@ -76,3 +76,16 @@
 >   }
 >   ```
 <hr>
+
+> ### ```api\v201\signup.modify.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **name**  
+>   - birthday (not required)
+>   - job  (not required)
+>   #### Return Values ``JSON``:
+>   ```json
+>   {"statusCode": "[code]"}
+>   ```
+<hr>
