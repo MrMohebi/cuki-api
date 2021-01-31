@@ -89,3 +89,16 @@
 >   {"statusCode": "[code]"}
 >   ```
 <hr>
+
+> ### ```api\v201\changeUserInfo.modify.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - name (not required)
+>   - birthday (not required)
+>   - job  (not required)
+>   #### Return Values ``JSON``:
+>   ```json
+>   {"statusCode": "[code]"}
+>   ```
+<hr>
