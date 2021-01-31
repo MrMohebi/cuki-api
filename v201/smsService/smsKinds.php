@@ -1,2 +1,4 @@
 <?php
-$VERIFICATION_LOGIN = 'loginfoodusers';
+class SMSKinds{
+    const VERIFICATION_LOGIN = 'loginfoodusers';
+}
