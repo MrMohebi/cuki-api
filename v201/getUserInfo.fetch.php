@@ -28,7 +28,7 @@ if(isset($_POST['token'])){
             'phone'=> $userInfo['phone'],
             'birthday'=> $userInfo['birthday'],
             'job'=> $userInfo['job'],
-            'totalBought'=> $userInfo['amount'],
+            'allTotalBought'=> $userInfo['amount'],
             'favoritePlaces' => json_decode($userInfo['favorite_places']),
         );
         exit(json_encode(array('statusCode'=>200, 'data'=>$customerInfo_arranged)));
