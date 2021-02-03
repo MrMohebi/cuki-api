@@ -131,7 +131,7 @@
 >            "phone": "[phone]",
 >            "birthday": "[birthday]",
 >            "job": "[job]",
->            "totalBought": "[amount]",
+>            "allTotalBought": "[amount]",
 >            "favoritePlaces": "[favorite_places]"    
 >     }
 >   }
