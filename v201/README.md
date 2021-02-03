@@ -117,3 +117,23 @@
 >   }
 >   ```
 <hr>
+
+> ### ```api\v201\getUserInfo.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": {
+>            "name": "[name]",
+>            "phone": "[phone]",
+>            "birthday": "[birthday]",
+>            "job": "[job]",
+>            "totalBought": "[amount]",
+>            "favoritePlaces": "[favorite_places]"    
+>     }
+>   }
+>   ```
+<hr>
