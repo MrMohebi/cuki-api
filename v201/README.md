@@ -137,3 +137,25 @@
 >   }
 >   ```
 <hr>
+
+> ### ```api\v201\getCustomerInfo.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **englishName**
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": {
+>            "phone": "[phone]",
+>            "totalBought": "[totalBought]",
+>            "orderTimes": "[orderTimes]",
+>            "score": "[score]",
+>            "orderList": "[orderList]",
+>            "rank": "[rank]",
+>            "lastOrderDate": "[lastOrderDate]"   
+>     }
+>   }
+>   ```
+<hr>
