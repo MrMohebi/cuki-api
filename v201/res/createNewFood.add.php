@@ -39,7 +39,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
 
 
     $groupTableFullInfo = $oursAccess->select("*", "food_group", "`english_name`='$group'");
-    if(count($groupTableFullInfo)<1)
+    if(count($groupTableFullInfo)<2)
         exit(json_encode(array('statusCode'=>400, "details"=>"group name is not available")));
 
     $flag_duplicate = $resAccess->noDuplicate(array(
