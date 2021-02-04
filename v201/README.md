@@ -159,3 +159,18 @@
 >   }
 >   ```
 <hr>
+
+
+> ### ```api\v201\getOpenOrders.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **englishName**
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": {}
+>   }
+>   ```
+<hr>
