@@ -23,8 +23,8 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
     $resAccess = new MysqldbAccess($connRes);
 
 
-    $name = mysqli_real_escape_string($connRes, $_POST['name']);
-    $group = mysqli_real_escape_string($connRes, $_POST['group']);
+    $name = trim(mysqli_real_escape_string($connRes, $_POST['name']));
+    $group = trim(mysqli_real_escape_string($connRes, $_POST['group']));
     $details = mysqli_real_escape_string($connRes, $_POST['details']);
     $price = ($_POST['price'] > 900) ? mysqli_real_escape_string($connRes, $_POST['price']) : 100000;
     $status = (strlen($_POST['status']) > 3) ? mysqli_real_escape_string($connRes, $_POST['status']) : 'out of stock';
