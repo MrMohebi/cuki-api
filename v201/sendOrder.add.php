@@ -29,7 +29,7 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
     $delivery_date =  mysqli_real_escape_string($connRes, $_POST['deliveryDate']);
     $delivery_date = $delivery_date >= time() ? $delivery_date : time();
     $details =  mysqli_real_escape_string($connRes, $_POST['details']);
-    $address =  json_decode(mysqli_real_escape_string($connRes, $_POST['address']), true);
+    $address =  json_decode(str_replace("\\","",mysqli_real_escape_string($connRes, $_POST['address'])),true);
     $deliveryPrice  =  mysqli_real_escape_string($connRes, $_POST['deliveryPrice']);
     $paymentStatus  =  mysqli_real_escape_string($connRes, $_POST['paymentStatus']);
     $orderTable  =  mysqli_real_escape_string($connRes, $_POST['orderTable']);
@@ -64,7 +64,7 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
                 "payment_status" => $paymentStatus,
                 "delivery_price" => $deliveryPrice,
                 "order_status" => "inLine",
-                "address" => json_encode($address),
+                "address" => characterFixer(json_encode($address)),
                 "details" => $details,
                 "total_price" => $total_price,
                 "ordered_date" => time(),
@@ -155,3 +155,8 @@ function getAddressText ($lat, $lon){
     return $result['address_compact'];
 }
 
+function characterFixer($str){
+    return preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+        return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UTF-16BE');
+    }, $str);
+}
