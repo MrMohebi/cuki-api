@@ -43,7 +43,9 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
 
     if(strlen($phone) == 11) {
         if(($orderTable > 0 || count($address) > 1)) {
-            $address["addressText"] = getAddressText($address["coordinates"][0], $address["coordinates"][1]);
+            if(count($address) > 1)
+                $address["addressText"] = getAddressText($address["coordinates"][0], $address["coordinates"][1]);
+
             $orders_array = json_decode($orders, true); // [{id: 6, number: 2}, {id: 42, number: 6}, ....]
             $ordersFullInfo = getFoodInfo($resAccess, $orders_array);
             $orderPrice = TotalPriceWithDiscount($ordersFullInfo);
