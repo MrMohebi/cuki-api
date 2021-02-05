@@ -25,7 +25,7 @@
 >   - **orders** ```[{"id": 3, "number": 2},{"id": 24, "number": 1}]```
 >   - **details**  ```{"general": "st1", "common": [{"foodName": "name1", "description":"desc1"}]}```
 >   - **orderTable** (order table or address is require)
->   - **address**
+>   - **address** ```{"coordinates":[lat, lon], "addressDetails":"userDetails"}```
 >   - deliveryDate (not required)
 >   - deliveryPrice (not required)
 >   - paymentStatus (not required)
@@ -171,23 +171,6 @@
 >   {
 >     "statusCode": "[code]",
 >     "data": {}
->   }
->   ```
-<hr>
-
-> ### ```api\v201\getAdderssText.php``` ``POST``
->
-> #### Required fields:
->   - **token**
->   - **lat**
->   - **lon**
->   #### Return Values ``JSON``:
->   ```json
->   {
->     "statusCode": "[code]",
->     "data": {
->       "addressCompact": "[address]"
->     }
 >   }
 >   ```
 <hr>
