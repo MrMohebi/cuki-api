@@ -27,7 +27,6 @@ if(isset($_POST['lat']) && isset($_POST['lon']) && isset($_POST['token'])){
         'Content-Type: application/json',
         "x-api-key: $apiKey",
     ));
-
     $result = json_decode(curl_exec($requestHandler), true);
     curl_close($requestHandler);
 
