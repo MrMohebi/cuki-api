@@ -174,3 +174,20 @@
 >   }
 >   ```
 <hr>
+
+> ### ```api\v201\getAdderssText.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **lat**
+>   - **lon**
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": {
+>       "addressCompact": "[address]"
+>     }
+>   }
+>   ```
+<hr>
