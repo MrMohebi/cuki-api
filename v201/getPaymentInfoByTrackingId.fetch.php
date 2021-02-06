@@ -23,7 +23,7 @@ if(isset($_POST['token'])) {
 
 
 
-    $paymentsInfo = $oursAccess->select("*", "payments", "`tracking_id`='$trackingId'");
+    $paymentsInfo = $oursAccess->select("*", "payments", "`tracking_id`='$trackingId' AND `payer_phone`='$userPhone'");
 
 
     if($paymentsInfo){
