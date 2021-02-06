@@ -174,3 +174,17 @@
 >   }
 >   ```
 <hr>
+
+> ### ```api\v201\getPaymentInfoByTrackingId.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **trackingId**
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": {}
+>   }
+>   ```
+<hr>
