@@ -41,7 +41,7 @@ if(isset($_POST['token'])) {
                 "status"=>$eachPay['status'],
             ));
         }
-        exit(json_encode(array('statusCode'=>200, "data"=>$result, "test"=>$paymentsInfo, "test"=>$trackingId)));
+        exit(json_encode(array('statusCode'=>200, "data"=>$result)));
 
     }else{
         exit(json_encode(array('statusCode'=>404, "details"=>"no payment was found!")));
