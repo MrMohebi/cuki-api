@@ -25,8 +25,9 @@ if(isset($_POST['token'])) {
 
     $paymentsInfo = $oursAccess->select("*", "payments", "`tracking_id`='$trackingId' AND `payer_phone`='$userPhone'");
 
-
     if($paymentsInfo){
+        if(isset($paymentsInfo['tracking_id']))
+            $paymentsInfo = array($paymentsInfo);
         $result = array();
         foreach ($paymentsInfo as $eachPay){
             array_push($result,array(
