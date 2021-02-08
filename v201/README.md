@@ -188,3 +188,22 @@
 >   }
 >   ```
 <hr>
+
+> ### ```api\v201\sendComment.add.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **englishName**
+>   - **foodId**
+>   - **body**
+>   - title  (not required)
+>   - rate  (not required)
+>   - prosCons  (not required) _like:_ ```{"pros": ["sth1", "sth2", "sth3"], "cons": ["sth4", "sth5", "sth6"]}```
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": {}
+>   }
+>   ```
+<hr>
