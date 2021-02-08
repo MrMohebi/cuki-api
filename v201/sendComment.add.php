@@ -51,7 +51,7 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
         "body"=>$body,
         "rate"=>$rate,
         "order_type"=>$trackingIdAndOrders['order_table'] > 0 ? "inRes" : "outRes",
-        "pros_cons"=>$prosCons,
+        "pros_cons"=>json_encode($prosCons),
         "status"=>"notConfirmed",
         "commented_date"=>time(),
         "modified_date"=>time(),
