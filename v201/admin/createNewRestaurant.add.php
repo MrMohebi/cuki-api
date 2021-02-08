@@ -151,12 +151,29 @@ function createTables($dbConn){
             PRIMARY KEY (`restaurant_customers_id`)
         );";
 
+    $sql_comment = "CREATE TABLE `comments`(
+            `id`    int  AUTO_INCREMENT ,
+            `phone`          tinytext  ,
+            `name`           tinytext  ,
+            `tracking_id`    int  ,
+            `food_id`        int ,
+            `title`          tinyint  ,
+            `body`           text  ,
+            `rate`           tinyint  ,
+            `order_type`     tinytext  ,
+            `pros_cons`      text  ,              
+            `status`         tinytext  ,
+            `commented_date` bigint  ,
+            `modified_date`          bigint  ,
+            PRIMARY KEY (`id`)
+        );";
 
     if(
         mysqli_query($dbConn, $sql_food) &&
         mysqli_query($dbConn, $sql_orders) &&
         mysqli_query($dbConn, $sql_info) &&
-        mysqli_query($dbConn, $sql_restaurant_customers)
+        mysqli_query($dbConn, $sql_restaurant_customers) &&
+        mysqli_query($dbConn, $sql_comment)
     ){
         return true;
     }else{
