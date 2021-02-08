@@ -37,7 +37,7 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
     $phone = $userInfo['phone'];
     $name = $userInfo['name'];
 
-    $trackingIdAndOrders = getOrdersAndLastTrackingIdBaseOnFoodId($resAccess, $phone, $foodId, time()-(8400*40), time());
+    $trackingIdAndOrders = getOrdersAndLastTrackingIdBaseOnFoodId($resAccess, $phone, $foodId, time()-(8400*3), time());
 
     if($trackingIdAndOrders[0] < 100)
         exit(json_encode(array('statusCode'=>403, "details"=>"your not allowed to leave comment")));
