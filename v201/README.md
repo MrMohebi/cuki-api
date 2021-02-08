@@ -207,3 +207,24 @@
 >   }
 >   ```
 <hr>
+
+> ### ```api\v201\getCommentsByfoodId.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **englishName**
+>   - **foodId**
+>   - **startDate**
+>   - **endDate**
+>
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": {
+>       "comments": ["comments"],
+>       "isAllowedLeaveComment": "true/false"
+>     }
+>   }
+>   ```
+<hr>
