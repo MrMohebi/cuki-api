@@ -39,11 +39,19 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
     if(isset($commentsList['id']))
         $commentsList = array($commentsList);
 
+
     if(count($commentsList) > 0 && $commentsList){
+        // remove privet info
+        $finalCommentsList = array();
+        foreach ($commentsList as $eComment){
+            $eComment['phone'] = ":)";
+            array_push($finalCommentsList, $eComment);
+        }
+
         exit(json_encode(array(
             'statusCode'=>200,
             'data'=>array(
-                'comments'=>$commentsList,
+                'comments'=>$finalCommentsList,
                 'isAllowedLeaveComment'=> $trackingIdAndOrders[0] > 100
             )
         )));
