@@ -70,7 +70,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
     }
 
 }else{
-    exit(json_encode(array('statusCode'=>401)));
+    exit(json_encode(array('statusCode'=>400, 'details'=>"wrong inputs!")));
 }
 
 function characterFixer($str){
