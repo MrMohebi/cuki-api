@@ -12,7 +12,7 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
 
     // is token valid and has access
     if(!($oursAccess->isTokenValid($_POST['token'], "ours_customers"))){
-        exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid")));
+        exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid", "data"=>array('isAllowedLeaveComment'=>false))));
     }
 
     $englishName =  mysqli_real_escape_string($connOurs, $_POST['englishName']);
@@ -56,11 +56,11 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
             )
         )));
     }else{
-        exit(json_encode(array('statusCode'=>404, 'details'=>"nothing found")));
+        exit(json_encode(array('statusCode'=>404, 'details'=>"nothing found", "data"=>array('isAllowedLeaveComment'=>false))));
     }
 
 }else{
-    exit(json_encode(array('statusCode'=>400, 'details'=>"wrong inputs")));
+    exit(json_encode(array('statusCode'=>400, 'details'=>"wrong inputs", "data"=>array('isAllowedLeaveComment'=>false))));
 }
 
 function getOrdersAndLastTrackingIdBaseOnFoodId($resAccess,$userPhone, $foodId, $startTime, $endTime){
