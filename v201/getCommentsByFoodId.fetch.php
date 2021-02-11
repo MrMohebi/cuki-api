@@ -10,11 +10,6 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
     $connOurs = MysqlConfig::connOurs();
     $oursAccess = new MysqldbAccess($connOurs);
 
-    // is token valid and has access
-    if(!($oursAccess->isTokenValid($_POST['token'], "ours_customers"))){
-        exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid", "data"=>array('isAllowedLeaveComment'=>false))));
-    }
-
     $englishName =  mysqli_real_escape_string($connOurs, $_POST['englishName']);
 
     $connRes = MysqlConfig::connRes($englishName);
