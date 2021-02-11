@@ -27,6 +27,8 @@ if(isset($_POST['token'])){
     $openOrdersList = $resAccess->select("*", "orders", "`customer_phone`='$userPhone' AND `order_status`!='deleted' AND `order_status`!='done'");
 
     if(sizeof($openOrdersList) > 0){
+        if (isset($openOrdersList['tracking_id']))
+            $openOrdersList = array($openOrdersList);
         exit(json_encode(array('statusCode'=>200, 'data'=>$openOrdersList)));
     }else{
         exit(json_encode(array('statusCode'=>404, "details"=>"nothing found!")));
