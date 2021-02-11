@@ -214,8 +214,8 @@
 >   - **token**
 >   - **englishName**
 >   - **foodId**
->   - **startDate**
->   - **endDate**
+>   - **lastDate** [ _last comment date that received_ ]
+>   - **number**  [ _comment to fetch_ ]
 >
 >   #### Return Values ``JSON``:
 >   ```json

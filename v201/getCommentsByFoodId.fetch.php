@@ -23,8 +23,8 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
 
     $token =  mysqli_real_escape_string($connOurs, $_POST['token']);
     $foodId =  mysqli_real_escape_string($connRes, $_POST['foodId']);
-    $startDate = mysqli_real_escape_string($connRes, $_POST['startDate']);
-    $endDate = mysqli_real_escape_string($connRes, $_POST['endDate']);
+    $lastDate = mysqli_real_escape_string($connRes, $_POST['lastDate']);
+    $number = mysqli_real_escape_string($connRes, $_POST['number']);
 
 
     // get user phone and name
@@ -34,7 +34,8 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
     $trackingIdAndOrders = getOrdersAndLastTrackingIdBaseOnFoodId($resAccess, $phone, $foodId, time()-(8400*3), time());
 
 
-    $commentsList = $resAccess->select("*", "comments", "`food_id`='$foodId' AND `status`='confirmed' AND `commented_date` BETWEEN '$startDate' AND '$endDate'", "`commented_date` DESC");
+
+    $commentsList = $resAccess->select("*", "comments", "`food_id`='$foodId' AND `status`='confirmed' AND `commented_date` < '$lastDate'", "`commented_date` DESC LIMIT $number");
 
     if(isset($commentsList['id']))
         $commentsList = array($commentsList);
