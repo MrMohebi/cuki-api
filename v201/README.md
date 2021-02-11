@@ -208,7 +208,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\getCommentsByfoodId.fetch.php``` ``POST``
+> ### ```api\v201\getCommentsByFoodId.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
