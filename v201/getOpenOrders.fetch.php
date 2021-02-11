@@ -16,11 +16,15 @@ if(isset($_POST['token'])){
     }
 
     $englishName =  mysqli_real_escape_string($connOurs, $_POST['englishName']);
+    $token =  mysqli_real_escape_string($connOurs, $_POST['token']);
 
     $connRes = MysqlConfig::connRes($englishName);
     $resAccess = new MysqldbAccess($connRes);
 
-    $openOrdersList = $resAccess->select("*", "orders", "`order_status`!='deleted' AND `order_status`!='done'");
+    $userPhone = $oursAccess->select("phone", "ours_customers", "`token`='$token'");
+
+
+    $openOrdersList = $resAccess->select("*", "orders", "`customer_phone`='$userPhone' AND `order_status`!='deleted' AND `order_status`!='done'");
 
     if(sizeof($openOrdersList) > 0){
         exit(json_encode(array('statusCode'=>200, 'data'=>$openOrdersList)));
