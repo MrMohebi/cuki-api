@@ -92,3 +92,17 @@
 <hr>
 
 
+> ### ```api\v201\res\changeOrderStatus.modify.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **trackingId**
+>   - **newOrderStatus** 
+>   - deleteReason
+>   - deliveryId
+>   
+>   #### Return Values ``JSON``:
+>   ```json
+>   {"statusCode": "[code]"}
+>   ```
+<hr>
