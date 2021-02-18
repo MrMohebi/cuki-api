@@ -37,7 +37,7 @@ if(isset($_POST['token']) && isset($_POST['startDate']) && isset($_POST['endDate
         "`ordered_date` BETWEEN '$startDate' AND  '$endDate'",
         "`ordered_date` DESC"
     );
-    exit(json_encode(array('statusCode'=>200, 'data'=>$ordersList ? $ordersList : array(), "test"=>$endDate)));
+    exit(json_encode(array('statusCode'=>200, 'data'=>$ordersList ? $ordersList : array())));
 
 
 }else{
