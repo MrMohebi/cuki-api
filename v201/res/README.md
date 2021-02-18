@@ -106,3 +106,18 @@
 >   {"statusCode": "[code]"}
 >   ```
 <hr>
+
+
+> ### ```api\v201\res\getFoodsList.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": []
+>   }
+>   ```
+<hr>
