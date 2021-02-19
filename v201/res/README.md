@@ -121,3 +121,25 @@
 >   }
 >   ```
 <hr>
+
+
+> ### ```api\v201\res\changeFoodInfo.modify.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **foodId**
+>   - persianName 
+>   - group
+>   - details
+>   - price
+>   - status
+>   - discount
+>   - deliveryTime
+>   - counterAppFoodId
+>   - foodThumbnail ```image file```
+>
+>   #### Return Values ``JSON``:
+>   ```json
+>   {"statusCode": "[code]"}
+>   ```
+<hr>
