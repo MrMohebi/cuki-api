@@ -129,12 +129,12 @@
 >   - **token**
 >   - **foodId**
 >   - persianName 
->   - group
->   - details
+>   - group 
+>   - details [_separate them by "+"_]
 >   - price
->   - status
->   - discount
->   - deliveryTime
+>   - status ```one of: ["in stock", "out of stock", "deleted"]```
+>   - discount [_in percentage_]
+>   - deliveryTime [_in minute_]
 >   - counterAppFoodId
 >   - foodThumbnail ```image file```
 >
