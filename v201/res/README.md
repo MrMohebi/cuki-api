@@ -175,3 +175,23 @@
 >   ```
 <hr>
 
+> ### ```api\v201\res\changeResInfo.modify.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - persianName 
+>   - englishName 
+>   - phone [_array_]
+>   - addressText
+>   - addressLink 
+>   - owner 
+>   - employers [_object_] ```{"chef":"علی", ...}```
+>   - socialLinks [_object_] ```{"instagram":"@cuki", ...}```
+>   - openTime [_object_] ```{"0":[14,15,16,...],"1":[],"2":[],"3":[],"4":[],"5":[],"6":[]}```
+>   - type [_array_] ```["restaurant", "coffeeshope", ...]```
+>   - minOrderPrice 
+>   #### Return Values ``JSON``:
+>   ```json
+>   {"statusCode": "[code]"}
+>   ```
+<hr>
