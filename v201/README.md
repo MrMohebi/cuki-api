@@ -1,3 +1,5 @@
+
+
 ## Clients:
 
 > ### ```api\v201\getAllRestaurantData.fetch.php``` ``POST``
@@ -224,6 +226,27 @@
 >     "data": {
 >       "comments": ["comments"],
 >       "isAllowedLeaveComment": "true/false"
+>     }
+>   }
+>   ```
+<hr>
+
+
+
+> ### ```api\v201\getTempToken.add.php``` ``POST``
+>
+> #### Required fields:
+>   - **resEnglishName**
+>   - **ip**
+>   - **userAgent**
+>   - isp (_base on ip address_)
+>   - city (_base on ip address_)
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": {
+>        "token": "[token]"
 >     }
 >   }
 >   ```
