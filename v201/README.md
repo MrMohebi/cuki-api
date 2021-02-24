@@ -73,7 +73,8 @@
 >     "statusCode": "[code]",
 >     "data": {
 >         "isUserInfoSaved": "true/false",
->         "token": "[32-64 character]"
+>         "token": "[32-64 character]",
+>         "phone": "[phone]"
 >     }
 >   }
 >   ```

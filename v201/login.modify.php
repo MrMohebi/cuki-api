@@ -47,7 +47,8 @@ if(strlen($_POST['phone']) > 10 && $_POST['phone'][0] == 0 && strlen($_POST['vCo
             'statusCode'=>200,
             'data'=>array(
                 'isUserInfoSaved'=> $isUserInfoSaved,
-                'token'=>$userToken
+                'token'=>$userToken,
+                'phone'=>$phone,
             ),
         )));
     }else{
