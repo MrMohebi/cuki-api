@@ -24,14 +24,15 @@ if(isset($_POST['resEnglishName'])&&isset($_POST['ip'])&&isset($_POST['userAgent
         'userAgent'=>$userAgent,
     ));
 
-    // generate new token
-    $userToken = bin2hex(openssl_random_pseudo_bytes(32));
+    // generate new temp token
+    $userToken = "TEMPUSER_".bin2hex(openssl_random_pseudo_bytes(32));
 
     $insertUserParams = array(
         'type'=>"temp",
-        'token'=>"TEMPUSER_".$userToken,
+        'token'=>$userToken,
         'info'=>$newUserInfo_str,
-        'phone'=>'RAN'.rand(11111111,99999999)
+        'phone'=>'RAN'.rand(11111111,99999999),
+        "modified_date"=>time(),
     );
 
 
