@@ -252,3 +252,20 @@
 >   }
 >   ```
 <hr>
+
+
+> ### ```api\v201\getIpInfo.php``` ``POST``
+>
+>   #### Required fields:
+>
+>   #### Return Values ``JSON``:
+>   ```json
+>   {  
+>       "ip":"127.0.0.1",
+>       "city":"Tehran",
+>       "country":"IR",
+>       "location":"35.2451,58.6541",
+>       "timezone":"Asia/Tehran"
+>   }
+>   ```
+<hr>
