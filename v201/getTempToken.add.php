@@ -29,7 +29,7 @@ if(isset($_POST['resEnglishName'])&&isset($_POST['ip'])&&isset($_POST['userAgent
 
     $insertUserParams = array(
         'type'=>"temp",
-        'token'=>$userToken,
+        'token'=>"TEMPUSER_".$userToken,
         'info'=>$newUserInfo_str,
         'phone'=>'RAN'.rand(11111111,99999999)
     );
