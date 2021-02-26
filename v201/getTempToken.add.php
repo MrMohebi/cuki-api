@@ -31,7 +31,7 @@ if(isset($_POST['resEnglishName'])&&isset($_POST['ip'])&&isset($_POST['userAgent
         'type'=>"temp",
         'token'=>$userToken,
         'info'=>$newUserInfo_str,
-        'phone'=>'09000000000'
+        'phone'=>'RAN'.rand(11111111,99999999)
     );
 
 
