@@ -35,17 +35,21 @@ if(($_POST['token'] == $TOKEN_RESTAURANT_ADMIN) || ($_POST['token'] == $TOKEN_RE
             if (($orderStatus == "done" || $orderStatus == "deleted") && ($orderInfo['order_status'] == 'inLine')) {
                 $orderInfo['order_status'] = $orderStatus;
                 increaseOrderTimesOfFoods($conn_database_restaurant, $orderInfo);
-                if (addOrderToCustomerHistory($conn_database_restaurant, $orderInfo))
-                    exit(json_encode(array('statusCode' => 200)));
+                if($userPhone[0]!= "R")
+                    addOrderToCustomerHistory($conn_database_restaurant, $orderInfo);
+                exit(json_encode(array('statusCode' => 200)));
+
 
             } elseif ($orderStatus == "inLine") {
-                if (deleteOrderFromCustomerHistory($conn_database_restaurant, $orderInfo))
-                    exit(json_encode(array('statusCode' => 200)));
+                if($userPhone[0]!= "R")
+                    deleteOrderFromCustomerHistory($conn_database_restaurant, $orderInfo);
+                exit(json_encode(array('statusCode' => 200)));
 
             }elseif ($orderStatus == "deleted" && ($orderInfo['order_status'] == 'done')){
                 $orderInfo['order_status'] = $orderStatus;
-                if (changeOrderToDeletedInCustomerHistory($conn_database_restaurant, $orderInfo))
-                    exit(json_encode(array('statusCode' => 200)));
+                if($userPhone[0]!= "R")
+                    changeOrderToDeletedInCustomerHistory($conn_database_restaurant, $orderInfo);
+                exit(json_encode(array('statusCode' => 200)));
             }else{
                 $lastOrderStatus = $orderInfo['order_status'];
                 $sql_change_order_status = "UPDATE orders SET `order_status` = '$lastOrderStatus', `delete_reason`= '', `modified_date` = '$nowTimestamp' WHERE `tracking_id` = '$trackingId';";
