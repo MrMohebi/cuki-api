@@ -254,6 +254,22 @@
 <hr>
 
 
+> ### ```api\v201\getUserOffCodes.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **resEnglishName**
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": []
+>   }
+>   ```
+<hr>
+
+
+
 > ### ```api\v201\getIpInfo.php``` ``POST``
 >
 >   #### Required fields:
