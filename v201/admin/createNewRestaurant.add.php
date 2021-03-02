@@ -52,6 +52,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishNam
         "english_name"=>$english_name,
         "phone"=>$phone,
         "db_name"=>$db_name,
+        'token'=>bin2hex(openssl_random_pseudo_bytes(32)),
         "payment_key"=>$payment_key,
         "position"=>"admin",
         "modified_date"=>time(),
