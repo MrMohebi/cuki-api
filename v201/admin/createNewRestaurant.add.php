@@ -60,7 +60,8 @@ if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishNam
 
     if(
         $oursAccess->insert("restaurants", $insertNewResParams) &&
-        createTables(MysqlConfig::createConn($db_name))
+        createTables(MysqlConfig::createConn($db_name))&&
+        addResInfoToTable(MysqlConfig::connRes($english_name), $english_name)
     ){
         exit(json_encode(array('statusCode'=>200)));
     }else{
@@ -69,6 +70,17 @@ if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishNam
 
 }else{
     exit(json_encode(array('statusCode'=>400, 'details'=>"wrong inputs")));
+}
+
+
+function addResInfoToTable($connRes, $englishName){
+    $time = time();
+    $sqlCommandAddInfo = "INSERT INTO info(`english_name`,`modified_date`) VALUES ('$englishName', '$time')";
+    if(mysqli_query($connRes, $sqlCommandAddInfo)){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 
