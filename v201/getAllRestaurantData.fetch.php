@@ -68,7 +68,9 @@ function getFoodList($resAccess, $ourAccess){
 
 
 function getResInfo($resAccess){
-    $infoList = $resAccess->select("*", "info");
+    $infoList = $resAccess->select("*", "info", false, "`info_id` DESC LIMIT 1");
+    if(!isset($infoList["info_id"]))
+        return array();
     foreach ($infoList as $key => $val){
         $infoList[$key] = is_numeric($val) ? $val+0: $val;
     }
