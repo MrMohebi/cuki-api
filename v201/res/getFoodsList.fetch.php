@@ -24,6 +24,9 @@ if(isset($_POST['token'])){
 
 
     $foodsList = $resAccess->select("*", "foods");
+
+    $foodsList = isset($foodsList['foods']) ? array($foodsList) : $foodsList;
+
     exit(json_encode(array('statusCode'=>200, 'data'=>$foodsList ? $foodsList : array())));
 
 }else{
