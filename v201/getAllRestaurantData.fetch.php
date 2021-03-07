@@ -37,7 +37,7 @@ if(strlen($_POST['englishName']) > 2){
 
 
 function getFoodList($resAccess, $ourAccess){
-    $foodsList = $resAccess->select("*", "foods", false,"`foods_id` DESC");
+    $foodsList = $resAccess->select("*", "foods", "`status`!='deleted'","`foods_id` DESC");
     $groupsInfo = $ourAccess->select("*", "food_group");
     for($i = 0; $i < count($foodsList) ; $i++){
         foreach ($foodsList[$i] as $key => $val){
