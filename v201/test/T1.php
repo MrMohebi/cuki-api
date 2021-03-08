@@ -8,3 +8,4 @@ $oursAccess = new MysqldbAccess($connOurs);
 $connRes = MysqlConfig::connRes("cuki");
 $resAccess = new MysqldbAccess($connRes);
 
+
