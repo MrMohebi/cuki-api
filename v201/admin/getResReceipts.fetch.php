@@ -27,6 +27,7 @@ if(isset($_POST['token'])) {
 
 
     $resReceipts = $oursAccess->select("*", "res_settlement", false,"`res_settlement_id` DESC  LIMIT 1000");
+    $resReceipts = isset($resReceipts['res_settlement_id']) ? array($resReceipts) : $resReceipts;
 
     // filter and pretty names
     $result = array();
