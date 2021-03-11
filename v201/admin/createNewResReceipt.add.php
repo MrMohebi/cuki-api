@@ -4,6 +4,7 @@ header("Access-Control-Allow-Headers: Authorization, Content-Type");
 header("Access-Control-Allow-Origin: *");
 header('content-type: application/json; charset=utf-8');
 
+$commission = 6.42 / 100; // in percentage
 
 if (isset($_POST['token'])) {
     include_once "../DataAccess/MysqldbAccess.php";
@@ -84,7 +85,7 @@ if (isset($_POST['token'])) {
     $status = "created-notPaid";
     $creatorSupportName = $adminInfo["name"];
     $creatorSupportId = $adminInfo["admins_id"];
-    $toPayAmount = $totalOnlineIncomeFromLastSettlement;
+    $toPayAmount = ceil($totalOnlineIncomeFromLastSettlement - ($totalCashIncomeFromLastSettlement * ($commission)));
 
     $sql_saveNewResReceiptRecordParams = array(
         'res_english_name'=>$resEnglishName,
