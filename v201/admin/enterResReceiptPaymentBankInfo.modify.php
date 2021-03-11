@@ -63,16 +63,16 @@ if(isset($_POST['token']) && (isset($_POST['receiptId'])) && (isset($_POST['resE
 
 
     $sqlUpdate_submitPaymentInfoParams = array(
-        'paid_date'=>'$paidDate',
-        'paid_amount'=>'$paidAmount' ,
-        'paid_res_abank_num'=>'$paidResABankNum',
-        'paid_our_abank_num'=>'$paidOurABankNum',
-        'paid_bank_tracking_id'=>'$paidBankTrackingId',
-        'payer_support_name'=>'$supportPayerName',
-        'payer_support_id'=>'$supportPayerId',
-        'modified_date'=>'$nowTimestamp',
-        'to_pay_amount'=>'$newToPayAmount',
-        'status'=>'$newStatus'
+        'paid_date'=>$paidDate,
+        'paid_amount'=>$paidAmount ,
+        'paid_res_abank_num'=>$paidResABankNum,
+        'paid_our_abank_num'=>$paidOurABankNum,
+        'paid_bank_tracking_id'=>$paidBankTrackingId,
+        'payer_support_name'=>$supportPayerName,
+        'payer_support_id'=>$supportPayerId,
+        'modified_date'=>time(),
+        'to_pay_amount'=>$newToPayAmount,
+        'status'=>$newStatus
     );
 
     if($oursAccess->update("res_settlement", $sqlUpdate_submitPaymentInfoParams, "`res_settlement_id`='$lastResReceiptId'")){
