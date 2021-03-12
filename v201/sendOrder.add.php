@@ -53,6 +53,10 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
             // change it when off codes added
             $total_price = $orderPrice;
 
+            if($orderPrice < 900){
+                exit(json_encode(array('statusCode'=>405, "details"=>"order list is empty")));
+            }
+
             $ordersFullInfo_jsonStr = json_encode($ordersFullInfo);
             $ordersFullInfo_jsonStr = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
                 return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UTF-16BE');
