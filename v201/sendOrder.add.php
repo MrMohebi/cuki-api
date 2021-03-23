@@ -83,6 +83,7 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
             if ($resAccess->insert("orders", $orderParams)) {
                 $trackingIdForUserData = $englishName . "@" . $randomNum;
                 if ($oursAccess->updateAppendToList("ours_customers", array("orders" => $trackingIdForUserData), "`token`='$token'")) {
+                    sendSMSToCounter($resAccess, $phone, $ordersFullInfo, $total_price);
                     exit(json_encode(array(
                         'statusCode' => 200,
                         "data" => array(
@@ -160,6 +161,32 @@ function getAddressText ($lat, $lon){
     curl_close($requestHandler);
     return $result['address_compact'];
 }
+
+function sendSMSToCounter($resAccess,$customerPhone, $orderList, $finalPrice){
+    include_once "smsService/ghasedak/src/GhasedakApi.php";
+    require_once 'jDateTime-master/jdatetime.class.php';
+    $api = new \Ghasedak\GhasedakApi( '65debc3160a00153e34b72f53a6bae08b18192663636aca99f3e942567a71d89');
+    $date = new jDateTime(true, true, 'Asia/Tehran');
+    $dateTimeText = $date->date("Y-m-d H:i", false, false);
+
+    $orderListText = "";
+    foreach ($orderList as $eOrder)
+        $orderListText .= $eOrder['number']  . "<==" . $eOrder['name'] . "\n";
+
+    $massageTemplate = "از: $customerPhone". "\n".
+                        "سفارشات: ". "\n".
+                        $orderListText. "\n".
+                        "مجموع: $finalPrice"."\n".
+                        "زمان: $dateTimeText";
+    $counterPhone = $resAccess->select("counter_phone", "info", false, "`info_id` DESC LIMIT 1");
+    if(strlen($counterPhone) == 11){
+        $api->SendSimple($counterPhone, $massageTemplate, 50001212124276);
+    }else{
+        return false;
+    }
+}
+
+
 
 function characterFixer($str){
     return preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
