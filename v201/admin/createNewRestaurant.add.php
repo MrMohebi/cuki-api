@@ -135,6 +135,7 @@ function createTables($dbConn){
             `info_id`         int  AUTO_INCREMENT ,
             `persian_name`    tinytext  ,
             `english_name`    tinytext  ,
+            `counter_phone`           tinytext  ,
             `phone`           tinytext  ,
             `address`         text  ,
             `address_link`    text  ,
