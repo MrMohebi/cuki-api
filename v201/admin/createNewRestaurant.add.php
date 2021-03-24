@@ -147,6 +147,7 @@ function createTables($dbConn){
             `type`            tinytext  ,        
             `rate`            tinytext  ,           
             `logo_link`       text  ,
+            `favicon_link`       text  ,
             `min_order_price` mediumint  ,
             `off_codes`       text  ,              
             `modified_date`          bigint  ,
