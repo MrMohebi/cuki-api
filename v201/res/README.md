@@ -196,3 +196,14 @@
 >   {"statusCode": "[code]"}
 >   ```
 <hr>
+
+> ### ```dl/uploadResLogo.modify.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **logo** [_file_]
+>   #### Return Values ``JSON``:
+>   ```json
+>   {"statusCode": "[code]"}
+>   ```
+<hr>
