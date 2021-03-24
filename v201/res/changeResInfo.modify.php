@@ -25,6 +25,7 @@ if(isset($_POST['token'])){
 
     $persianName = trim(mysqli_real_escape_string($connOurs, $_POST['persianName']));
     $englishName = trim(mysqli_real_escape_string($connOurs, $_POST['englishName']));
+    $counterPhone = mysqli_real_escape_string($connOurs, $_POST['counterPhone']);
     $phone = json_decode(str_replace("\\","",mysqli_real_escape_string($connOurs, $_POST['phone'])));
     $addressText = mysqli_real_escape_string($connOurs, $_POST['addressText']);
     $addressLink = mysqli_real_escape_string($connOurs, $_POST['addressLink']);
@@ -42,6 +43,7 @@ if(isset($_POST['token'])){
     $sqlUpdateResInfoParams = array(
         "persian_name"=> strlen($persianName) > 2 ? $persianName : $previousResInfo["persian_name"],
         "english_name"=> strlen($englishName) > 2 ? $englishName : $previousResInfo["english_name"],
+        "counter_phone"=> strlen($counterPhone) == 11 ? $counterPhone : $previousResInfo["counter_phone"],
         "phone"=> (is_array($phone)) ? json_encode($phone) : (strlen($phone) > 4 ? json_encode(array($phone)) : $previousResInfo["phone"]),
         "address"=> strlen($addressText) > 3 ? $addressText : $previousResInfo["address"],
         "address_link"=> strlen($addressLink) > 10 ? $addressLink : $previousResInfo["address_link"],

@@ -1,6 +1,6 @@
 ##Restaurants:
 
-> ### ```api\v201\res\createCategory.add.php``` ``POST``
+> ### ```api/v201/res/createCategory.add.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -19,7 +19,7 @@
 <hr>
 
 
-> ### ```api\v201\res\createNewFood.add.php``` ``POST``
+> ### ```api/v201/res/createNewFood.add.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -39,7 +39,7 @@
 <hr>
 
 
-> ### ```api\v201\res\loginRes.fetch.php``` ``POST``
+> ### ```api/v201/res/loginRes.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **username**
@@ -62,7 +62,7 @@
 <hr>
 
 
-> ### ```api\v201\res\getOrdersList.fetch.php``` ``POST``
+> ### ```api/v201/res/getOrdersList.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -78,7 +78,7 @@
 
 
 
-> ### ```api\v201\res\submitOrderSavedCounterApp.modify.php``` ``POST``
+> ### ```api/v201/res/submitOrderSavedCounterApp.modify.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -92,7 +92,7 @@
 <hr>
 
 
-> ### ```api\v201\res\changeOrderStatus.modify.php``` ``POST``
+> ### ```api/v201/res/changeOrderStatus.modify.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -108,7 +108,7 @@
 <hr>
 
 
-> ### ```api\v201\res\getFoodsList.fetch.php``` ``POST``
+> ### ```api/v201/res/getFoodsList.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -123,7 +123,7 @@
 <hr>
 
 
-> ### ```api\v201\res\getCategoriesList.fetch.php``` ``POST``
+> ### ```api/v201/res/getCategoriesList.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -138,7 +138,7 @@
 <hr>
 
 
-> ### ```api\v201\res\getResInfo.fetch.php``` ``POST``
+> ### ```api/v201/res/getResInfo.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -154,7 +154,7 @@
 
 
 
-> ### ```api\v201\res\changeFoodInfo.modify.php``` ``POST``
+> ### ```api/v201/res/changeFoodInfo.modify.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -175,12 +175,13 @@
 >   ```
 <hr>
 
-> ### ```api\v201\res\changeResInfo.modify.php``` ``POST``
+> ### ```api/v201/res/changeResInfo.modify.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
 >   - persianName 
 >   - englishName 
+>   - counterPhone
 >   - phone [_array_]
 >   - addressText
 >   - addressLink 
