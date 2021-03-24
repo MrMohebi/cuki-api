@@ -171,8 +171,8 @@ function sendSMSToCounter($resAccess,$customerPhone, $orderList, $finalPrice){
 
     $orderListText = "";
     foreach ($orderList as $eOrder)
-        $orderListText .= $eOrder['number']  . "<==" . $eOrder['name'] . "\n";
-
+        $orderListText .= $eOrder['name'] . " ==> " . $eOrder['number'] . "\n";
+    $finalPrice = number_format($finalPrice);
     $massageTemplate = "از: $customerPhone". "\n".
                         "سفارشات: ". "\n".
                         $orderListText. "\n".
