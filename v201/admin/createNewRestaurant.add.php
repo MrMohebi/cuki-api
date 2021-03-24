@@ -183,12 +183,14 @@ function createTables($dbConn){
             PRIMARY KEY (`id`)
         );";
 
+    $sql_infoFRow = "INSERT INTO info(`status`) VALUES ('active');";
     if(
         mysqli_query($dbConn, $sql_food) &&
         mysqli_query($dbConn, $sql_orders) &&
         mysqli_query($dbConn, $sql_info) &&
         mysqli_query($dbConn, $sql_restaurant_customers) &&
-        mysqli_query($dbConn, $sql_comment)
+        mysqli_query($dbConn, $sql_comment)&&
+        mysqli_query($dbConn, $sql_infoFRow)
     ){
         return true;
     }else{
