@@ -133,6 +133,7 @@ function createTables($dbConn){
 
     $sql_info = "CREATE TABLE `info`(
             `info_id`         int  AUTO_INCREMENT ,
+            `status`    tinytext,
             `persian_name`    tinytext  ,
             `english_name`    tinytext  ,
             `counter_phone`           tinytext  ,
