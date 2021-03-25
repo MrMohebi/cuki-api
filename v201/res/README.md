@@ -181,6 +181,7 @@
 >   - **token**
 >   - persianName 
 >   - englishName 
+>   - status
 >   - counterPhone
 >   - phone [_array_]
 >   - addressText
