@@ -20,6 +20,11 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
     $connRes = MysqlConfig::connRes($englishName);
     $resAccess = new MysqldbAccess($connRes);
 
+    if(!isResOpen($resAccess))
+        exit(json_encode(array('statusCode'=>403, "details"=>"restaurant is closed")));
+
+
+
     $randomNum = rand(11111111,99999999);
     $total_price = 0;
     $offcodeUsed = false;
@@ -43,7 +48,7 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
 
     if(strlen($phone) == 11) {
         if(($orderTable > 0 || count($address) > 1)) {
-            if(count($address) > 1)
+            if(is_array($address) && count($address) > 1)
                 $address["addressText"] = getAddressText($address["coordinates"][0], $address["coordinates"][1]);
 
             $orders_array = json_decode($orders, true); // [{id: 6, number: 2}, {id: 42, number: 6}, ....]
@@ -186,6 +191,14 @@ function sendSMSToCounter($resAccess,$customerPhone, $orderList, $finalPrice){
     }
 }
 
+
+function isResOpen($resAccess){
+    date_default_timezone_set("Asia/Tehran");
+    $currentHour = date("H");
+    $dayOfWeek = date("w") != 7 ? date("w")+1 : 0;
+    $openTimes = json_decode($resAccess->select('open_time', "info", false, "`info_id` DESC LIMIT 1"));
+    return in_array($currentHour, $openTimes[$dayOfWeek]);
+}
 
 
 function characterFixer($str){
