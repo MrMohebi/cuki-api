@@ -198,6 +198,18 @@
 >   ```
 <hr>
 
+> ### ```api/v201/res/changeResPass.modify.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **previousPass**
+>   - **newPass** 
+>   #### Return Values ``JSON``:
+>   ```json
+>   {"statusCode": "[code]"}
+>   ```
+<hr>
+
 > ### ```dl/uploadResLogo.modify.php``` ``POST``
 >
 > #### Required fields:
