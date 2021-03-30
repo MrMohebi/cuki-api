@@ -61,7 +61,7 @@ if(isset($_POST['token'])){
 
 
     if($resAccess->update("info", $sqlUpdateResInfoParams, "`info_id`='$rowId'")){
-        exit(json_encode(array('statusCode'=>200, "test"=>$openTime)));
+        exit(json_encode(array('statusCode'=>200)));
     }else{
         exit(json_encode(array('statusCode'=>500, "details"=>"something went wrong during change food info on server")));
     }
