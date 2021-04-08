@@ -20,7 +20,7 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
     $connRes = MysqlConfig::connRes($englishName);
     $resAccess = new MysqldbAccess($connRes);
 
-    if(!isResOpen($resAccess))
+    if(!(isResOpen($resAccess) && isResActive($resAccess)))
         exit(json_encode(array('statusCode'=>403, "details"=>"restaurant is closed")));
 
 
@@ -167,7 +167,7 @@ function getAddressText ($lat, $lon){
     return $result['address_compact'];
 }
 
-function sendSMSToCounter($resAccess,$customerPhone, $orderList, $finalPrice){
+function sendSMSToCounter($resAccess,$customerPhone, $orderList, $finalPrice):bool{
     include_once "smsService/ghasedak/src/GhasedakApi.php";
     require_once 'jDateTime-master/jdatetime.class.php';
     $api = new \Ghasedak\GhasedakApi( '65debc3160a00153e34b72f53a6bae08b18192663636aca99f3e942567a71d89');
@@ -186,18 +186,24 @@ function sendSMSToCounter($resAccess,$customerPhone, $orderList, $finalPrice){
     $counterPhone = $resAccess->select("counter_phone", "info", false, "`info_id` DESC LIMIT 1");
     if(strlen($counterPhone) == 11){
         $api->SendSimple($counterPhone, $massageTemplate, 50001212124276);
+        return true;
     }else{
         return false;
     }
 }
 
 
-function isResOpen($resAccess){
+function isResOpen($resAccess):bool{
     date_default_timezone_set("Asia/Tehran");
     $currentHour = date("H");
     $dayOfWeek = date("w") != 7 ? date("w")+1 : 0;
     $openTimes = json_decode($resAccess->select('open_time', "info", false, "`info_id` DESC LIMIT 1"));
     return in_array($currentHour, $openTimes[$dayOfWeek]);
+}
+
+function isResActive($resAccess):bool{
+    $resStatus = $resAccess->select('status', "info", false, "`info_id` DESC LIMIT 1");
+    return $resStatus == "active";
 }
 
 
