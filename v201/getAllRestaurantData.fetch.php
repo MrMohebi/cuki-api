@@ -17,6 +17,8 @@ if(strlen($_POST['englishName']) > 2){
     $foodListArr = getFoodList($resAccess,$ourAccess);
     $infoListArr = getResInfo($resAccess);
 
+    // remove secret data
+    unset($infoListArr["counter_phone"]);
 
     if(sizeof($foodListArr) > 1){
         exit(json_encode(array(
