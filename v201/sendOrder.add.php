@@ -196,7 +196,7 @@ function sendSMSToCounter($resAccess,$customerPhone, $orderList, $finalPrice):bo
 function isResOpen($resAccess):bool{
     date_default_timezone_set("Asia/Tehran");
     $currentHour = date("H");
-    $dayOfWeek = date("w") != 7 ? date("w")+1 : 0;
+    $dayOfWeek = date("w") != 6 ? date("w")+1 : 0;
     $openTimes = json_decode($resAccess->select('open_time', "info", false, "`info_id` DESC LIMIT 1"));
     return in_array($currentHour, $openTimes[$dayOfWeek]);
 }
