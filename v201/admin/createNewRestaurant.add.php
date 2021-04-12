@@ -185,6 +185,16 @@ function createTables($dbConn){
             PRIMARY KEY (`id`)
         );";
 
+    $sql_pager = "CREATE TABLE `pager`(
+            `id` int  AUTO_INCREMENT ,
+            `table`              tinytext  ,
+            `date`         bigint  ,
+            `status`        tinytext  ,
+            `customer_phone`        tinytext  ,
+            `modified_date`          bigint  ,
+            PRIMARY KEY (`id`)
+        );";
+
     $sql_infoFRow = "INSERT INTO info(`status`) VALUES ('active');";
     if(
         mysqli_query($dbConn, $sql_food) &&
@@ -192,7 +202,8 @@ function createTables($dbConn){
         mysqli_query($dbConn, $sql_info) &&
         mysqli_query($dbConn, $sql_restaurant_customers) &&
         mysqli_query($dbConn, $sql_comment)&&
-        mysqli_query($dbConn, $sql_infoFRow)
+        mysqli_query($dbConn, $sql_infoFRow)&&
+        mysqli_query($dbConn, $sql_pager)
     ){
         return true;
     }else{
