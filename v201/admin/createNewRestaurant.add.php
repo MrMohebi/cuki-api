@@ -61,7 +61,8 @@ if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishNam
     if(
         $oursAccess->insert("restaurants", $insertNewResParams) &&
         createTables(MysqlConfig::createConn($db_name))&&
-        addResInfoToTable(MysqlConfig::connRes($english_name), $english_name)
+        addResInfoToTable(MysqlConfig::connRes($english_name), $english_name)&&
+        setResCode($oursAccess, $english_name)
     ){
         exit(json_encode(array('statusCode'=>200)));
     }else{
@@ -200,7 +201,7 @@ function createTables($dbConn){
 }
 
 
-function createPaymentKey ($oursAccess){
+function createPaymentKey ($oursAccess): string{
     $paymentKey = generateRandomStringAlphaBet(2);
     while ($oursAccess->noDuplicate(array("payment_key"=>$paymentKey), "restaurants")){
         $paymentKey = generateRandomStringAlphaBet(2);
@@ -208,7 +209,7 @@ function createPaymentKey ($oursAccess){
     return $paymentKey;
 }
 
-function generateRandomStringAlphabet($length = 10) {
+function generateRandomStringAlphabet($length = 10): string{
     $characters = 'abcdefghijklmnopqrstuvwxyz';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -216,4 +217,9 @@ function generateRandomStringAlphabet($length = 10) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+function setResCode($oursAccess, $resEnglishName):bool{
+    $resId = $oursAccess->select("restaurants_id", "restaurants", "`english_name`='$resEnglishName'");
+    return $oursAccess->update("restaurants", array("res_code"=>($resId+10)), "`english_name`='$resEnglishName'");
 }
