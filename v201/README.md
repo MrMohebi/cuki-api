@@ -2,7 +2,7 @@
 
 ## Clients:
 
-> ### ```api\v201\getAllRestaurantData.fetch.php``` ``POST``
+> ### ```api/v201/getAllRestaurantData.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **englishName**  
@@ -19,7 +19,7 @@
 <hr>
 
 
-> ### ```api\v201\sendOrder.add.php``` ``POST``
+> ### ```api/v201/sendOrder.add.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -46,7 +46,7 @@
 <hr>
 
 
-> ### ```api\v201\sendVCode.add.php``` ``POST``
+> ### ```api/v201/sendVCode.add.php``` ``POST``
 >
 > #### Required fields:
 >   - **phone**  _should start with 09..._
@@ -62,7 +62,7 @@
 <hr>
 
 
-> ### ```api\v201\login.modify.php``` ``POST``
+> ### ```api/v201/login.modify.php``` ``POST``
 >
 > #### Required fields:
 >   - **phone**  _should start with 09..._
@@ -80,7 +80,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\signup.modify.php``` ``POST``
+> ### ```api/v201/signup.modify.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -93,7 +93,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\changeUserInfo.modify.php``` ``POST``
+> ### ```api/v201/changeUserInfo.modify.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -106,7 +106,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\getOrderByTrackingId.fetch.php``` ``POST``
+> ### ```api/v201/getOrderByTrackingId.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -121,7 +121,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\getUserInfo.fetch.php``` ``POST``
+> ### ```api/v201/getUserInfo.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -141,7 +141,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\getCustomerInfo.fetch.php``` ``POST``
+> ### ```api/v201/getCustomerInfo.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -164,7 +164,7 @@
 <hr>
 
 
-> ### ```api\v201\getOpenOrders.fetch.php``` ``POST``
+> ### ```api/v201/getOpenOrders.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -178,7 +178,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\getPaymentInfoByTrackingId.fetch.php``` ``POST``
+> ### ```api/v201/getPaymentInfoByTrackingId.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -192,7 +192,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\sendComment.add.php``` ``POST``
+> ### ```api/v201/sendComment.add.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -211,7 +211,7 @@
 >   ```
 <hr>
 
-> ### ```api\v201\getCommentsByFoodId.fetch.php``` ``POST``
+> ### ```api/v201/getCommentsByFoodId.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -234,7 +234,7 @@
 
 
 
-> ### ```api\v201\getTempToken.add.php``` ``POST``
+> ### ```api/v201/getTempToken.add.php``` ``POST``
 >
 > #### Required fields:
 >   - **resEnglishName**
@@ -254,7 +254,7 @@
 <hr>
 
 
-> ### ```api\v201\getUserOffCodes.fetch.php``` ``POST``
+> ### ```api/v201/getUserOffCodes.fetch.php``` ``POST``
 >
 > #### Required fields:
 >   - **token**
@@ -270,7 +270,7 @@
 
 
 
-> ### ```api\v201\getIpInfo.php``` ``POST``
+> ### ```api/v201/getIpInfo.php``` ``POST``
 >
 >   #### Required fields:
 >
@@ -282,6 +282,21 @@
 >       "country":"IR",
 >       "location":"35.2451,58.6541",
 >       "timezone":"Asia/Tehran"
+>   }
+>   ```
+<hr>
+
+
+> ### ```api/v201/callPager.add.php``` ``POST``
+>
+>   #### Required fields:
+>   - **resEnglishName**
+>   - **table**
+>   - customerPhone (not required)
+>   #### Return Values ``JSON``:
+>   ```json
+>   {  
+>       "statusCode": "[code]"
 >   }
 >   ```
 <hr>
