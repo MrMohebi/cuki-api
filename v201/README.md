@@ -300,3 +300,20 @@
 >   }
 >   ```
 <hr>
+
+
+> ### ```api/v201/getResNameByCode.fetch.php``` ``POST``
+>
+>   #### Required fields:
+>   - **resCode**
+>   - customerPhone (not required)
+>   #### Return Values ``JSON``:
+>   ```json
+>   {  
+>       "statusCode": "[code]",
+>       "date": {
+>         "resEnglishName": ""
+>       }  
+>   }
+>   ```
+<hr>
