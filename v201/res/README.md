@@ -225,6 +225,20 @@
 <hr>
 
 
+> ### ```api/v201/res/customerClub/getCustomerInfo.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": []
+>   }
+>   ```
+<hr>
+
+
 
 > ### ```dl/uploadResLogo.modify.php``` ``POST``
 >
