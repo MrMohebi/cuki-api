@@ -225,6 +225,22 @@
 <hr>
 
 
+> ### ```api/v201/res/getOrderByTrackingId.fetch.php``` ``POST``
+>
+> #### Required fields:
+>   - **token**
+>   - **trackingId** [_array OR single id_]
+>   #### Return Values ``JSON``:
+>   ```json
+>   {
+>     "statusCode": "[code]",
+>     "data": []
+>   }
+>   ```
+<hr>
+
+
+
 > ### ```api/v201/res/customerClub/getCustomerInfo.fetch.php``` ``POST``
 >
 > #### Required fields:
