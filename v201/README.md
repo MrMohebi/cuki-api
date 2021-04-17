@@ -306,7 +306,6 @@
 >
 >   #### Required fields:
 >   - **resCode**
->   - customerPhone (not required)
 >   #### Return Values ``JSON``:
 >   ```json
 >   {  
