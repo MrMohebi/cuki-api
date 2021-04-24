@@ -26,17 +26,20 @@ if(isset($_POST['token'])){
     $customerList = $resAccess->select("*", "restaurant_customers");
 
     $customerList = isset($customerList['restaurant_customers_id']) ? array($customerList) : ($customerList ? $customerList : array());
-    $customerListWithName = addCustomerName($customerList, $oursAccess);
+    $customerListWithName = addCustomerDynamicInfo($customerList, $oursAccess);
     exit(json_encode(array('statusCode'=>200, 'data'=>$customerListWithName)));
 
 }else{
     exit(json_encode(array('statusCode'=>400, 'details'=>"wrong inputs!")));
 }
 
-function addCustomerName($customerList, $oursAccess):array {
+function addCustomerDynamicInfo($customerList, $oursAccess):array {
     for ($i=0; $i < count($customerList);$i++){
         $ePhone = $customerList[$i]['phone'];
-        $customerList[$i]['name'] = $oursAccess->select('name', 'ours_customers', "`phone`='$ePhone'");
+        $userInfo = $oursAccess->select('*', 'ours_customers', "`phone`='$ePhone'");
+        $customerList[$i]['name'] = $userInfo['name'];
+        $customerList[$i]['birthday'] = $userInfo['birthday'];
+        $customerList[$i]['job'] = $userInfo['job'];
     }
     return $customerList;
 }
