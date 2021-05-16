@@ -23,9 +23,9 @@ if(isset($_POST['token'])){
     $resAccess = new MysqldbAccess($connRes);
 
 
-    $customerList = $resAccess->select("*", "restaurant_customers");
+    $customerList = $resAccess->select("*", "customers");
 
-    $customerList = isset($customerList['restaurant_customers_id']) ? array($customerList) : ($customerList ? $customerList : array());
+    $customerList = isset($customerList['customers_id']) ? array($customerList) : ($customerList ? $customerList : array());
     $customerListWithName = addCustomerDynamicInfo($customerList, $oursAccess);
     exit(json_encode(array('statusCode'=>200, 'data'=>$customerListWithName)));
 
@@ -36,7 +36,7 @@ if(isset($_POST['token'])){
 function addCustomerDynamicInfo($customerList, $oursAccess):array {
     for ($i=0; $i < count($customerList);$i++){
         $ePhone = $customerList[$i]['phone'];
-        $userInfo = $oursAccess->select('*', 'ours_customers', "`phone`='$ePhone'");
+        $userInfo = $oursAccess->select('*', 'users', "`phone`='$ePhone'");
         $customerList[$i]['name'] = $userInfo['name'];
         $customerList[$i]['birthday'] = $userInfo['birthday'];
         $customerList[$i]['job'] = $userInfo['job'];

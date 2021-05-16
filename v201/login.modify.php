@@ -17,10 +17,10 @@ if(strlen($_POST['phone']) > 10 && $_POST['phone'][0] == 0 && strlen($_POST['vCo
     // generate new token
     $userToken = bin2hex(openssl_random_pseudo_bytes(32));
 
-    $userInfo = $oursAccess->select("*", "ours_customers", "`phone`='$phone'");
+    $userInfo = $oursAccess->select("*", "users", "`phone`='$phone'");
 
     // check user attempts times
-    $oursAccess->update("ours_customers", array('verification_code_tries'=>$userInfo['verification_code_tries']+1), "`phone`='$phone'");
+    $oursAccess->update("users", array('verification_code_tries'=>$userInfo['verification_code_tries']+1), "`phone`='$phone'");
     if($userInfo['verification_code_tries'] > 15){
         exit(json_encode(array('statusCode'=>429, "details"=>"too many attempts! please ask for new VCode")));
     }
@@ -39,10 +39,9 @@ if(strlen($_POST['phone']) > 10 && $_POST['phone'][0] == 0 && strlen($_POST['vCo
         'token'=>$userToken,
         'verification_code'=>null,
         'verification_code_tries'=>null,
-        'modified_date'=>time()
     );
 
-    if($oursAccess->update("ours_customers", $userLoginUpdateParams, "`phone`='$phone'")){
+    if($oursAccess->update("users", $userLoginUpdateParams, "`phone`='$phone'")){
         exit(json_encode(array(
             'statusCode'=>200,
             'data'=>array(

@@ -11,7 +11,7 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
     $oursAccess = new MysqldbAccess($connOurs);
 
     // is token valid and has access
-    if(!($oursAccess->isTokenValid($_POST['token'], "ours_customers"))){
+    if(!($oursAccess->isTokenValid($_POST['token'], "users"))){
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid")));
     }
 
@@ -31,8 +31,8 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
 
     $token =  mysqli_real_escape_string($connOurs, $_POST['token']);
     $orders =  str_replace("\\","",mysqli_real_escape_string($connRes, $_POST['orders']));
-    $delivery_date =  mysqli_real_escape_string($connRes, $_POST['deliveryDate']);
-    $delivery_date = $delivery_date >= time() ? $delivery_date : time();
+    $delivery_at =  mysqli_real_escape_string($connRes, $_POST['deliveryDate']);
+    $delivery_at = $delivery_at >= time() ? $delivery_at : time();
     $details =  mysqli_real_escape_string($connRes, $_POST['details']);
     $address =  json_decode(str_replace("\\","",mysqli_real_escape_string($connRes, $_POST['address'])),true);
     $deliveryPrice  =  mysqli_real_escape_string($connRes, $_POST['deliveryPrice']);
@@ -40,7 +40,7 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
     $orderTable  =  mysqli_real_escape_string($connRes, $_POST['orderTable']);
 
     // get user phone and user orderList
-    $userInfo = $oursAccess->select("*", "ours_customers", "`token`='$token'" );
+    $userInfo = $oursAccess->select("*", "users", "`token`='$token'" );
     $phone = $userInfo['phone'];
     $userOrdersList = ($userInfo['orders'] != null && strlen($userInfo['orders']) > 0) ? json_decode($userInfo['orders']) : array();
 
@@ -70,24 +70,22 @@ if(isset($_POST['orders']) && isset($_POST['englishName']) && isset($_POST['toke
 
             $orderParams = array(
                 "tracking_id" => $randomNum,
-                "customer_phone" => $phone,
-                "order_list" => $ordersFullInfo_jsonStr,
+                "user_phone" => $phone,
+                "items" => $ordersFullInfo_jsonStr,
                 "payment_status" => $paymentStatus,
                 "delivery_price" => $deliveryPrice,
                 "order_status" => "inLine",
                 "address" => characterFixer(json_encode($address)),
                 "details" => $details,
                 "total_price" => $total_price,
-                "ordered_date" => time(),
-                "delivery_date" => $delivery_date,
-                "modified_date" => time(),
-                "order_table" => $orderTable,
+                "delivery_at" => $delivery_at,
+                "table" => $orderTable,
                 "counter_app_status" => "0",
             );
 
             if ($resAccess->insert("orders", $orderParams)) {
                 $trackingIdForUserData = $englishName . "@" . $randomNum;
-                if ($oursAccess->updateAppendToList("ours_customers", array("orders" => $trackingIdForUserData), "`token`='$token'")) {
+                if ($oursAccess->updateAppendToList("users", array("orders" => $trackingIdForUserData), "`token`='$token'")) {
                     sendSMSToCounter($resAccess, $phone, $ordersFullInfo, $total_price);
                     exit(json_encode(array(
                         'statusCode' => 200,
@@ -121,7 +119,7 @@ function getFoodInfo($resAccess, $foods_list){
 
     foreach ($foods_list as $eachOrderedFood){
         foreach ($all_foods as $eachFood){
-            if ($eachOrderedFood['id'] == $eachFood['foods_id']) {
+            if ($eachOrderedFood['id'] == $eachFood['id']) {
                 $priceAfterDiscount = $eachFood['price'] * ((100 - $eachFood['discount'])/100);
                 $eachOrderedFood_newArray = array(
                     'id'=>$eachOrderedFood['id'],

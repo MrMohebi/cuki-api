@@ -23,7 +23,7 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
 
 
     // get user phone and name
-    $userInfo = $oursAccess->select("*", "ours_customers", "`token`='$token'" );
+    $userInfo = $oursAccess->select("*", "users", "`token`='$token'" );
     $phone = $userInfo['phone'];
 
     $trackingIdAndOrders = getOrdersAndLastTrackingIdBaseOnFoodId($resAccess, $phone, $foodId, time()-(8400*3), time());
@@ -60,7 +60,7 @@ if(isset($_POST['englishName']) && isset($_POST['token'])){
 }
 
 function getOrdersAndLastTrackingIdBaseOnFoodId($resAccess,$userPhone, $foodId, $startTime, $endTime){
-    $ordersList = $resAccess->select("*", "orders", " `customer_phone`='$userPhone' AND `ordered_date` BETWEEN '$startTime' AND '$endTime'", "`ordered_date` DESC");
+    $ordersList = $resAccess->select("*", "orders", " `user_phone`='$userPhone' AND `created_at` BETWEEN '$startTime' AND '$endTime'", "`created_at` DESC");
 
     if(!($ordersList))
         return array(0,array(),array());
@@ -70,7 +70,7 @@ function getOrdersAndLastTrackingIdBaseOnFoodId($resAccess,$userPhone, $foodId, 
     if(isset($ordersList['tracking_id']))
         $ordersList = array($ordersList);
     foreach ($ordersList as $eOrder){
-        $foodsList = json_decode($eOrder['order_list'], true);
+        $foodsList = json_decode($eOrder['items'], true);
         foreach ($foodsList as $eFood){
             if ($eFood['id'] == $foodId)
                 $trackingId = $eOrder['tracking_id'];

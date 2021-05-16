@@ -10,12 +10,12 @@ $connOur = MysqlConfig::connOurs();
 $ourAccess = new MysqldbAccess($connOur);
 
 $restaurants = $ourAccess->select("*", "restaurants", "`position`='admin'");
-$restaurants = isset($restaurants['restaurants_id']) ? array($restaurants) : $restaurants;
+$restaurants = isset($restaurants['id']) ? array($restaurants) : $restaurants;
 
 $result = array();
 foreach ($restaurants as $eachRes) {
     array_push($result, array(
-        "restaurantId"=>$eachRes['restaurants_id'],
+        "restaurantId"=>$eachRes['id'],
         "englishName" => $eachRes['english_name'],
         "persianName" => $eachRes['persian_name'],
     ));

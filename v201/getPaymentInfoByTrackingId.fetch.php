@@ -11,7 +11,7 @@ if(isset($_POST['token'])) {
     $oursAccess = new MysqldbAccess($connOurs);
 
     // is token valid and has access
-    if(!($oursAccess->isTokenValid($_POST['token'], "ours_customers"))){
+    if(!($oursAccess->isTokenValid($_POST['token'], "users"))){
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid")));
     }
 
@@ -19,7 +19,7 @@ if(isset($_POST['token'])) {
     $token =  mysqli_real_escape_string($connOurs, $_POST['token']);
     $trackingId =  mysqli_real_escape_string($connOurs, $_POST['trackingId']);
 
-    $userPhone = $oursAccess->select("phone", "ours_customers", "`token`='$token'");
+    $userPhone = $oursAccess->select("phone", "users", "`token`='$token'");
 
 
 
@@ -34,8 +34,8 @@ if(isset($_POST['token'])) {
                 "trackingId"=>$eachPay['tracking_id'],
                 'paymentId'=>$eachPay['payment_id'],
                 "payerPhone"=>$eachPay['payer_phone'],
-                "paidDate"=>$eachPay['verified_date'],
-                "isPaid"=> $eachPay['verified_date'] > 1000,
+                "paidDate"=>$eachPay['verified_at'],
+                "isPaid"=> $eachPay['verified_at'] > 1000,
                 "amount"=>$eachPay['amount'],
                 "itemType"=>$eachPay['item_type'],
                 "item"=>$eachPay['item'],

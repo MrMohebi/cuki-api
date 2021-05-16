@@ -39,8 +39,8 @@ if(strlen($_POST['englishName']) > 2){
 
 
 function getFoodList($resAccess, $ourAccess){
-    $foodsList = $resAccess->select("*", "foods", "`status`!='deleted'","`foods_id` DESC");
-    $groupsInfo = $ourAccess->select("*", "food_group");
+    $foodsList = $resAccess->select("*", "foods", "`status`!='deleted'","`id` DESC");
+    $groupsInfo = $ourAccess->select("*", "food_groups");
     for($i = 0; $i < count($foodsList) ; $i++){
         foreach ($foodsList[$i] as $key => $val){
             $foodsList[$i][$key] = is_numeric($val) ? $val+0: $val;

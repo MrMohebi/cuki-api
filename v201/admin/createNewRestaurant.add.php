@@ -55,7 +55,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishNam
         'token'=>bin2hex(openssl_random_pseudo_bytes(32)),
         "payment_key"=>$payment_key,
         "position"=>"admin",
-        "modified_date"=>time(),
+        "modified_at"=>time(),
     );
 
     if(
@@ -76,7 +76,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && ($_POST['englishNam
 
 function addResInfoToTable($connRes, $englishName){
     $time = time();
-    $sqlCommandAddInfo = "INSERT INTO info(`english_name`,`modified_date`) VALUES ('$englishName', '$time')";
+    $sqlCommandAddInfo = "INSERT INTO info(`english_name`,`modified_at`) VALUES ('$englishName', '$time')";
     if(mysqli_query($connRes, $sqlCommandAddInfo)){
         return true;
     }else{
@@ -87,7 +87,7 @@ function addResInfoToTable($connRes, $englishName){
 
 function createTables($dbConn){
     $sql_food = "CREATE TABLE `foods`(
-            `foods_id`      int  AUTO_INCREMENT ,
+            `id`      int  AUTO_INCREMENT ,
             `counter_app_food_id`              tinytext  ,
             `name`          tinytext  ,
             `group`         tinytext  ,
@@ -103,15 +103,15 @@ function createTables($dbConn){
             `related_main_name`          tinytext  ,
             `related_price_range`          tinytext  , 
             `related_thumbnail`          tinytext  ,            
-            `modified_date`          bigint  ,
-            PRIMARY KEY (`foods_id`)
+            `modified_at`          bigint  ,
+            PRIMARY KEY (`id`)
         );";
 
     $sql_orders ="CREATE TABLE `orders`(
-            `orders_id`      int  AUTO_INCREMENT ,
+            `id`      int  AUTO_INCREMENT ,
             `tracking_id`    int  ,
-            `customer_phone` tinytext  ,
-            `order_list`     mediumtext  ,         
+            `user_phone` tinytext  ,
+            `items`     mediumtext  ,         
             `payment_status` tinytext  ,
             `delivery_price` int  ,
             `order_status`   tinytext  ,
@@ -120,16 +120,16 @@ function createTables($dbConn){
             `details`        mediumtext  ,        
             `payment_id`     text  ,
             `total_price`    int  ,
-            `ordered_date`   bigint  ,
-            `delivery_date`  bigint  ,
+            `created_at`   bigint  ,
+            `delivery_at`  bigint  ,
             `delete_reason`  text  ,
             `offcode`   tinytext  ,
             `paid_foods` mediumtext,              
             `how_to_serve` tinytext,               
             `paid_amount` int,
-            `modified_date`          bigint  ,
-            `order_table` tinytext,
-            PRIMARY KEY (`orders_id`)
+            `modified_at`          bigint  ,
+            `table` tinytext,
+            PRIMARY KEY (`id`)
         );";
 
     $sql_info = "CREATE TABLE `info`(
@@ -151,21 +151,21 @@ function createTables($dbConn){
             `favicon_link`       text  ,
             `min_order_price` mediumint  ,
             `off_codes`       text  ,              
-            `modified_date`          bigint  ,
+            `modified_at`          bigint  ,
             PRIMARY KEY (`info_id`)
         );";
 
-    $sql_restaurant_customers = "CREATE TABLE `restaurant_customers`(
-            `restaurant_customers_id` int  AUTO_INCREMENT ,
+    $sql_customers = "CREATE TABLE `customers`(
+            `customers_id` int  AUTO_INCREMENT ,
             `phone`                   tinytext  ,
             `order_times`             mediumint  ,
-            `order_list`              mediumtext  ,         
+            `items`              mediumtext  ,         
             `score`                   int  ,
             `total_price`             int  ,
             `rank`                    tinytext  ,
             `off_codes`               text  ,               
-            `modified_date`          bigint  ,
-            PRIMARY KEY (`restaurant_customers_id`)
+            `modified_at`          bigint  ,
+            PRIMARY KEY (`customers_id`)
         );";
 
     $sql_comment = "CREATE TABLE `comments`(
@@ -181,7 +181,7 @@ function createTables($dbConn){
             `pros_cons`      text  ,              
             `status`         tinytext  ,
             `commented_date` bigint  ,
-            `modified_date`          bigint  ,
+            `modified_at`          bigint  ,
             PRIMARY KEY (`id`)
         );";
 
@@ -190,8 +190,8 @@ function createTables($dbConn){
             `table`              tinytext  ,
             `date`         bigint  ,
             `status`        tinytext  ,
-            `customer_phone`        tinytext  ,
-            `modified_date`          bigint  ,
+            `user_phone`        tinytext  ,
+            `modified_at`          bigint  ,
             PRIMARY KEY (`id`)
         );";
 
@@ -200,7 +200,7 @@ function createTables($dbConn){
         mysqli_query($dbConn, $sql_food) &&
         mysqli_query($dbConn, $sql_orders) &&
         mysqli_query($dbConn, $sql_info) &&
-        mysqli_query($dbConn, $sql_restaurant_customers) &&
+        mysqli_query($dbConn, $sql_customers) &&
         mysqli_query($dbConn, $sql_comment)&&
         mysqli_query($dbConn, $sql_infoFRow)&&
         mysqli_query($dbConn, $sql_pager)
@@ -231,6 +231,6 @@ function generateRandomStringAlphabet($length = 10): string{
 }
 
 function setResCode($oursAccess, $resEnglishName):bool{
-    $resId = $oursAccess->select("restaurants_id", "restaurants", "`english_name`='$resEnglishName'");
+    $resId = $oursAccess->select("id", "restaurants", "`english_name`='$resEnglishName'");
     return $oursAccess->update("restaurants", array("res_code"=>($resId+10)), "`english_name`='$resEnglishName'");
 }

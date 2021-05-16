@@ -20,12 +20,12 @@ if(isset($_POST['token'])){
 
     $trackingIds = is_array($trackingIds) ? $trackingIds : array($trackingIds);
 
-    $userInfo = $oursAccess->select("*", "ours_customers", "`token`='$token'" );
+    $userInfo = $oursAccess->select("*", "users", "`token`='$token'" );
 
     $ordersInfo = array();
     foreach ($trackingIds as $eachTrackingId){
         $orderInfo = $resAccess->select('*', 'orders', "`tracking_id`='$eachTrackingId'");
-        if($orderInfo['customer_phone'] == $userInfo['phone'])
+        if($orderInfo['user_phone'] == $userInfo['phone'])
             array_push($ordersInfo, $orderInfo);
     }
 

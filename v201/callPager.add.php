@@ -26,10 +26,9 @@ if(isset($_POST['resEnglishName'])&&isset($_POST['table'])){
 
     $sql_newPagingParams = array(
         'table'=>$table,
-        'customer_phone'=>$customerPhone,
+        'user_phone'=>$customerPhone,
         'date'=>time(),
         'status'=>'open',
-        'modified_date'=>time()
     );
 
     if($resAccess->insert("pager",$sql_newPagingParams)){

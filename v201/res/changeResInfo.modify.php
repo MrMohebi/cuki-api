@@ -55,7 +55,7 @@ if(isset($_POST['token'])){
         "open_time"=> is_array($openTime) && count($openTime) == 7  ? json_encode($openTime) : $previousResInfo["open_time"],
         "type"=> is_array($type) && count($type) > 0  ? json_encode($type) : $previousResInfo["type"],
         "min_order_price"=> $minOrderPrice > 100  ? $minOrderPrice : $previousResInfo["min_order_price"],
-        "modified_date"=> time(),
+        "modified_at"=> time(),
     );
 
 

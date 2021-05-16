@@ -36,7 +36,7 @@ if(isset($_POST['token']) && isset($_POST['foodId'])){
 
     // validate and translate inputs
     if(strlen($group) > 2){
-        $groupTableFullInfo = $oursAccess->select("*", "food_group", "`english_name`='$group'");
+        $groupTableFullInfo = $oursAccess->select("*", "food_groups", "`english_name`='$group'");
         if(count($groupTableFullInfo)<2)
             exit(json_encode(array('statusCode'=>400, "details"=>"group name is not available")));
     }
@@ -50,7 +50,7 @@ if(isset($_POST['token']) && isset($_POST['foodId'])){
 
 
 
-    $previousFoodInfo = $resAccess->select("*", "foods", "`foods_id`='$foodId'");
+    $previousFoodInfo = $resAccess->select("*", "foods", "`id`='$foodId'");
 
     if(count($previousFoodInfo) < 3)
         exit(json_encode(array('statusCode'=>404, "details"=>"couldn't find food, foodId maybe incorrect")));
@@ -66,7 +66,6 @@ if(isset($_POST['token']) && isset($_POST['foodId'])){
         "discount"=> $discount > 0 ? $discount : $previousFoodInfo["discount"],
         "counter_app_food_id"=> $counterAppFoodId > 0 ? $counterAppFoodId : $previousFoodInfo["counter_app_food_id"],
         "delivery_time"=> $deliveryTime > 0 ? $deliveryTime : $previousFoodInfo["delivery_time"],
-        "modified_date"=> time(),
     );
 
     if(isset($_FILES['foodThumbnail'])){
@@ -77,7 +76,7 @@ if(isset($_POST['token']) && isset($_POST['foodId'])){
 
 
 
-    if($resAccess->update("foods", $sqlUpdateFoodInfoParams, "`foods_id`='$foodId'")){
+    if($resAccess->update("foods", $sqlUpdateFoodInfoParams, "`id`='$foodId'")){
         exit(json_encode(array('statusCode'=>200)));
     }else{
         exit(json_encode(array('statusCode'=>500, "details"=>"something went wrong during change food info on server")));
@@ -112,19 +111,3 @@ function changeFoodThumbnail($token, $foodId, $thumbnail){
     else
         return false;
 }
-
-
-
-//$requestHandler = curl_init();
-//curl_setopt($requestHandler, CURLOPT_URL, 'https://api.payping.ir/v2/pay/verify');
-//curl_setopt($requestHandler, CURLOPT_POSTFIELDS, json_encode($info_params));
-//curl_setopt($requestHandler, CURLOPT_RETURNTRANSFER, TRUE);
-//curl_setopt($requestHandler, CURLOPT_HTTPHEADER, array(
-//    'Accept: application/json',
-//    'Content-Type: application/json',
-//    "Authorization: bearer $api_key",
-//));
-//
-//$result = json_decode(curl_exec($requestHandler), true);
-//curl_close($requestHandler);
-//$verifyCardNumber = $result['cardNumber'];

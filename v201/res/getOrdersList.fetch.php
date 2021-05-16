@@ -34,11 +34,11 @@ if(isset($_POST['token']) && isset($_POST['startDate']) && isset($_POST['endDate
     $ordersList = $resAccess->select(
         "*",
         "orders",
-        "`ordered_date` BETWEEN '$startDate' AND  '$endDate'",
-        "`ordered_date` DESC"
+        "`created_at` BETWEEN '$startDate' AND  '$endDate'",
+        "`created_at` DESC"
     );
 
-    $ordersList = isset($ordersList['orders_id']) ? array($ordersList) : $ordersList;
+    $ordersList = isset($ordersList['id']) ? array($ordersList) : $ordersList;
 
     exit(json_encode(array('statusCode'=>200, 'data'=>$ordersList ? $ordersList : array())));
 

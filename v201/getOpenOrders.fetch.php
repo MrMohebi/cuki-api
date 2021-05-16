@@ -11,7 +11,7 @@ if(isset($_POST['token'])){
     $oursAccess = new MysqldbAccess($connOurs);
 
     // is token valid and has access
-    if(!($oursAccess->isTokenValid($_POST['token'], "ours_customers"))){
+    if(!($oursAccess->isTokenValid($_POST['token'], "users"))){
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid")));
     }
 
@@ -21,10 +21,10 @@ if(isset($_POST['token'])){
     $connRes = MysqlConfig::connRes($englishName);
     $resAccess = new MysqldbAccess($connRes);
 
-    $userPhone = $oursAccess->select("phone", "ours_customers", "`token`='$token'");
+    $userPhone = $oursAccess->select("phone", "users", "`token`='$token'");
 
 
-    $openOrdersList = $resAccess->select("*", "orders", "`customer_phone`='$userPhone' AND `order_status`!='deleted' AND `order_status`!='done'");
+    $openOrdersList = $resAccess->select("*", "orders", "`user_phone`='$userPhone' AND `order_status`!='deleted' AND `order_status`!='done'");
 
     if(sizeof($openOrdersList) > 0){
         if (isset($openOrdersList['tracking_id']))

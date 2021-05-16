@@ -20,23 +20,21 @@ if(strlen($_POST['phone']) > 10 && $_POST['phone'][0] == 0){
 
 
     // check if user registered before
-    $savedPhone = $oursAccess->select('phone', "ours_customers", "`phone`='$phone'");
+    $savedPhone = $oursAccess->select('phone', "users", "`phone`='$phone'");
 
     if (strlen($savedPhone) == 11) {
         $sendVcodeUpdateParams = array(
             'verification_code'=>$randomNum,
             'verification_code_tries'=>0,
-            'modified_date'=>time()
         );
-        $oursAccess->update("ours_customers", $sendVcodeUpdateParams, "`phone`='$phone'");
+        $oursAccess->update("users", $sendVcodeUpdateParams, "`phone`='$phone'");
     }else if(strlen($phone) == 11) {
         $createNewUserParams = array(
             'phone'=>$phone,
             'verification_code'=>$randomNum,
             'verification_code_tries'=>0,
-            'modified_date'=>time()
         );
-        $oursAccess->insert("ours_customers", $createNewUserParams);
+        $oursAccess->insert("users", $createNewUserParams);
     }
 
     $api = new \Ghasedak\GhasedakApi( '65debc3160a00153e34b72f53a6bae08b18192663636aca99f3e942567a71d89');

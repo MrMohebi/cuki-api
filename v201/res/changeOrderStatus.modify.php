@@ -28,7 +28,7 @@ if(isset($_POST['token']) && isset($_POST['trackingId']) && isset($_POST['newOrd
 
     // get order info and user phone
     $orderInfo = $resAccess->select("*", "orders", "`tracking_id`='$trackingId'");
-    $userPhone = $orderInfo["customer_phone"];
+    $userPhone = $orderInfo["user_phone"];
 
     if(strlen($userPhone) !== 11)
         exit(json_encode(array('statusCode'=>404, 'details'=>"tracking id is incorrect")));
@@ -38,22 +38,21 @@ if(isset($_POST['token']) && isset($_POST['trackingId']) && isset($_POST['newOrd
         $sqlOrderInfoUpdateParams = array(
             'order_status'=>$newOrderStatus,
             'delete_reason'=>$deleteReason,
-            'modified_date'=>time()
         );
 
         if ($resAccess->update("orders",$sqlOrderInfoUpdateParams, "`tracking_id`='$trackingId'" )) {
 
             // create new customer if it doesn't exist
-            $customerInfo = $resAccess->select("*", "restaurant_customers", "`phone`='$userPhone'");
+            $customerInfo = $resAccess->select("*", "customers", "`phone`='$userPhone'");
             if(!$customerInfo){
-                $resAccess->insert("restaurant_customers", array('phone'=>$userPhone,'order_times'=>0,'order_list'=>"[]",'score'=>0,'total_price'=>0,'modified_date'=>time()));
-                $customerInfo = array('phone'=>$userPhone,'order_times'=>0,'order_list'=>"[]",'score'=>0,'total_price'=>0);
+                $resAccess->insert("customers", array('phone'=>$userPhone,'order_times'=>0,'order_list'=>"[]",'score'=>0,'total_order_price'=>0));
+                $customerInfo = array('phone'=>$userPhone,'order_times'=>0,'order_list'=>"[]",'score'=>0,'total_order_price'=>0);
             }
 
             // add tracking id to customer history if it doesn't exist
-            $previousOrderList = json_decode($customerInfo['order_list']);
+            $previousOrderList = json_decode($customerInfo['items']);
             if(!in_array($trackingId, $previousOrderList))
-                $resAccess->updateAppendToList('restaurant_customers', array('order_list'=>$trackingId),"`phone`='$userPhone'" );
+                $resAccess->updateAppendToList('customers', array('items'=>$trackingId),"`phone`='$userPhone'" );
 
 
             // add order info to customer info
@@ -79,31 +78,29 @@ function removeOrderCustomer($resAccess, $orderInfo, $customerInfo){
     $userPhone = $customerInfo['phone'];
     $sqlCustomerInfoUpdateParams = array(
         'order_times' => $customerInfo['order_times'] ? ($customerInfo['order_times'] - 1) : 0,
-        'score' => $customerInfo['score'] ? ($customerInfo['score'] - ( $orderInfo['total_price']/1000)) : 0,
-        'total_price'=>$customerInfo['total_price'] ? ($customerInfo['total_price'] - $orderInfo['total_price']) : 0,
-        'modified_date'=>time()
+        'score' => $customerInfo['score'] ? ($customerInfo['score'] - ( $orderInfo['total_order_price']/1000)) : 0,
+        'total_order_price'=>$customerInfo['total_order_price'] ? ($customerInfo['total_order_price'] - $orderInfo['total_order_price']) : 0,
     );
-    return $resAccess->update("restaurant_customers", $sqlCustomerInfoUpdateParams,"`phone`='$userPhone'");
+    return $resAccess->update("customers", $sqlCustomerInfoUpdateParams,"`phone`='$userPhone'");
 }
 
 function addOrderCustomer($resAccess, $orderInfo, $customerInfo){
     $userPhone = $customerInfo['phone'];
     $sqlCustomerInfoUpdateParams = array(
         'order_times' => $customerInfo['order_times'] ? ($customerInfo['order_times'] + 1) : 1,
-        'score' => $customerInfo['score'] ? ($customerInfo['score'] + ($orderInfo['total_price']/1000)) : ( $orderInfo['total_price']/1000),
-        'total_price'=>$customerInfo['total_price'] ? ($customerInfo['total_price'] + $orderInfo['total_price']) : $orderInfo['total_price'],
-        'modified_date'=>time()
+        'score' => $customerInfo['score'] ? ($customerInfo['score'] + ($orderInfo['total_order_price']/1000)) : ( $orderInfo['total_order_price']/1000),
+        'total_order_price'=>$customerInfo['total_order_price'] ? ($customerInfo['total_order_price'] + $orderInfo['total_order_price']) : $orderInfo['total_order_price'],
     );
-    return $resAccess->update("restaurant_customers", $sqlCustomerInfoUpdateParams,"`phone`='$userPhone'");
+    return $resAccess->update("customers", $sqlCustomerInfoUpdateParams,"`phone`='$userPhone'");
 }
 
 
 function increaseOrderTimesOfFoods($conn_restaurant,$orderInfo){
-    $orderList = json_decode($orderInfo["order_list"], true);
+    $orderList = json_decode($orderInfo["items"], true);
     foreach ($orderList as $eachFood){
         $foodId = $eachFood["id"];
         $foodNumbers = $eachFood["number"];
-        $sql_update_food_order_times = "UPDATE foods SET `order_times` = (`order_times`+'$foodNumbers') WHERE `foods_id`='$foodId';";
+        $sql_update_food_order_times = "UPDATE foods SET `order_times` = (`order_times`+'$foodNumbers') WHERE `id`='$foodId';";
         mysqli_query($conn_restaurant, $sql_update_food_order_times);
     }
     return true;

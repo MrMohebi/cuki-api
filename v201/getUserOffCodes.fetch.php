@@ -11,14 +11,14 @@ if(isset($_POST['token'])){
     $oursAccess = new MysqldbAccess($connOurs);
 
     // is token valid and has access
-    if(!($oursAccess->isTokenValid($_POST['token'], "ours_customers"))){
+    if(!($oursAccess->isTokenValid($_POST['token'], "users"))){
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid")));
     }
 
     $englishName =  mysqli_real_escape_string($connOurs, $_POST['resEnglishName']);
     $token =  mysqli_real_escape_string($connOurs, $_POST['token']);
 
-    $userPhone = $oursAccess->select("phone", "ours_customers", "`token`='$token'");
+    $userPhone = $oursAccess->select("phone", "users", "`token`='$token'");
 
 
     $offCodes = $oursAccess->select("*", "off_codes","`target`='$userPhone' AND (`place`='$englishName' OR `place`='general')");
@@ -44,7 +44,7 @@ if(isset($_POST['token'])){
                 'from'=>$eOffCode['from_date'],
                 'to'=>$eOffCode['to_date'],
                 'status'=>$eOffCode['status'],
-                'lastUsedDate'=>$eOffCode['modified_date'],
+                'lastUsedDate'=>$eOffCode['modified_at'],
             ));
         }
         exit(json_encode(array('statusCode'=>200, 'data'=>$result)));

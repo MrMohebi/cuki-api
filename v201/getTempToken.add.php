@@ -32,12 +32,11 @@ if(isset($_POST['resEnglishName'])&&isset($_POST['ip'])&&isset($_POST['userAgent
         'token'=>$userToken,
         'info'=>$newUserInfo_str,
         'phone'=>'RAN'.rand(11111111,99999999),
-        "modified_date"=>time(),
     );
 
 
 
-    if($oursAccess->insert('ours_customers', $insertUserParams)){
+    if($oursAccess->insert('users', $insertUserParams)){
         exit(json_encode(
             array(
                 'statusCode'=>200,

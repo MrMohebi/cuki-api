@@ -38,7 +38,7 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
 
 
 
-    $groupTableFullInfo = $oursAccess->select("*", "food_group", "`english_name`='$group'");
+    $groupTableFullInfo = $oursAccess->select("*", "food_groups", "`english_name`='$group'");
     if(count($groupTableFullInfo)<2)
         exit(json_encode(array('statusCode'=>400, "details"=>"group name is not available")));
 
@@ -59,7 +59,6 @@ if(isset($_POST['name']) && isset($_POST['group']) && isset($_POST['details'])) 
         "discount"=>0,
         "delivery_time"=>$delivery_time,
         "thumbnail"=>$thumbnail,
-        "modified_date"=>time(),
     );
 
 

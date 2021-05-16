@@ -24,19 +24,19 @@ if(isset($_POST['token'])){
 
 
     $userPhone = trim(mysqli_real_escape_string($connRes, $_POST['phone']));
-    $customerInfo = $resAccess->select("*", "restaurant_customers","`phone`='$userPhone'");
+    $customerInfo = $resAccess->select("*", "customers","`phone`='$userPhone'");
 
-    $ordersListInfo = $resAccess->select('*', "orders", "`customer_phone`='$userPhone'","`ordered_date` DESC LIMIT 300");
+    $ordersListInfo = $resAccess->select('*', "orders", "`user_phone`='$userPhone'","`created_at` DESC LIMIT 300");
 
     if(sizeof($customerInfo) > 3){
         $customerInfo_arranged = array(
             'phone'=> $customerInfo['phone'],
-            'totalBought'=> $customerInfo['total_price'],
+            'totalBought'=> $customerInfo['total_order_price'],
             'orderTimes'=> $customerInfo['order_times'],
             'score'=> $customerInfo['score'],
             'orderList'=> $ordersListInfo,
             'rank'=> $customerInfo['rank'],
-            'lastOrderDate'=> $customerInfo['modified_date'],
+            'lastOrderDate'=> $customerInfo['modified_at'],
         );
         exit(json_encode(array('statusCode'=>200, 'data'=>$customerInfo_arranged)));
     }else{

@@ -31,7 +31,7 @@ if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(
     $flag_duplicate = $oursAccess->noDuplicate(array(
         "persian_name"=>$catPersianName,
         "english_name"=>$catEnglishName,
-    ), "food_group");
+    ), "food_groups");
     if($flag_duplicate)
         exit(json_encode(array('statusCode'=>402, "details"=>"some of info are duplicate")));
 
@@ -46,7 +46,7 @@ if((strlen($_POST['catPersianName'])>2)&&(strlen($_POST['catEnglishName'])>2)&&(
         "average_color"=>$averageColor
     );
 
-    if($oursAccess->insert("food_group", $insertNewCatParams)){
+    if($oursAccess->insert("food_groups", $insertNewCatParams)){
         exit(json_encode(array('statusCode'=>200)));
     }else{
         exit(json_encode(array('statusCode'=>500, "details"=>"some thing went wrong during creating new category on server")));

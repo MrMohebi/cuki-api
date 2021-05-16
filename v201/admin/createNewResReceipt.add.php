@@ -100,7 +100,7 @@ if (isset($_POST['token'])) {
         'creator_support_name'=>$creatorSupportName,
         'creator_support_id'=>$creatorSupportId,
         'created_date'=>time(),
-        'modified_date'=>time(),
+        'modified_at'=>time(),
     );
 
 
@@ -127,7 +127,7 @@ function calculateTOnlineIncomeTillNow($lastRPRecord, $ourConn)
     $lastRDate = $lastRPRecord['created_date'] > 100 ? $lastRPRecord['created_date'] : 0;
 
     $sum = 0;
-    $sql_get_newOnlinePaymentsFromLastRecord = "SELECT * FROM payments WHERE `verified_date` >= '$lastRDate'";
+    $sql_get_newOnlinePaymentsFromLastRecord = "SELECT * FROM payments WHERE `verified_at` >= '$lastRDate'";
     if ($result = mysqli_query($ourConn, $sql_get_newOnlinePaymentsFromLastRecord)) {
         while ($row = mysqli_fetch_assoc($result)) {
             $sum += $row["amount"];
@@ -142,7 +142,7 @@ function calculateTcashFoodIncomeTillNow($lastRPRecord, $resConn)
     $lastRDate = $lastRPRecord['created_date'] > 100 ? $lastRPRecord['created_date'] : 0;
 
     $sum = 0;
-    $sql_get_newCashPaymentsFromLastRecord = "SELECT * FROM orders WHERE `ordered_date` >= '$lastRDate' AND `order_status` = 'done';";
+    $sql_get_newCashPaymentsFromLastRecord = "SELECT * FROM orders WHERE `created_at` >= '$lastRDate' AND `order_status` = 'done';";
     if ($result = mysqli_query($resConn, $sql_get_newCashPaymentsFromLastRecord)) {
         while ($row = mysqli_fetch_assoc($result)) {
             $sum += ($row["total_price"] - $row["paid_amount"]);
@@ -157,7 +157,7 @@ function calculateTOnlineIncomeFromLastSettlement($lastRPRecord, $ourConn)
     $lastRDate = $lastRPRecord['created_date'] > 100 ? $lastRPRecord['created_date'] : 0;
 
     $sum = 0;
-    $sql_get_newOnlinePaymentsFromLastRecord = "SELECT * FROM payments WHERE `verified_date` >= '$lastRDate'";
+    $sql_get_newOnlinePaymentsFromLastRecord = "SELECT * FROM payments WHERE `verified_at` >= '$lastRDate'";
     if ($result = mysqli_query($ourConn, $sql_get_newOnlinePaymentsFromLastRecord)) {
         while ($row = mysqli_fetch_assoc($result)) {
             $sum += $row["amount"];
@@ -172,7 +172,7 @@ function calculateTcashFoodIncomeFromLastSettlement($lastRPRecord, $resConn)
     $lastRDate = $lastRPRecord['created_date'] > 100 ? $lastRPRecord['created_date'] : 0;
 
     $sum = 0;
-    $sql_get_newCashPaymentsFromLastRecord = "SELECT * FROM orders WHERE `ordered_date` >= '$lastRDate' AND `order_status` = 'done'";
+    $sql_get_newCashPaymentsFromLastRecord = "SELECT * FROM orders WHERE `created_at` >= '$lastRDate' AND `order_status` = 'done'";
     if ($result = mysqli_query($resConn, $sql_get_newCashPaymentsFromLastRecord)) {
         while ($row = mysqli_fetch_assoc($result)) {
             $sum += ($row["total_price"] - $row["paid_amount"]);

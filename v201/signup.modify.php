@@ -16,7 +16,7 @@ if(isset($_POST['token']) && (strlen($_POST['name'])) > 2){
     $job = (strlen($_POST['job']) > 2) ? mysqli_real_escape_string($connOurs, $_POST['job']) : null ;
 
     // is token valid
-    if(!($oursAccess->isTokenValid($_POST['token'], "ours_customers"))){
+    if(!($oursAccess->isTokenValid($_POST['token'], "users"))){
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid")));
     }
 
@@ -28,10 +28,10 @@ if(isset($_POST['token']) && (strlen($_POST['name'])) > 2){
         'amount'=>0,
         'off_codes'=>'[]',
         'favorite_places'=>'[]',
-        'modified_date'=>time(),
+        'modified_at'=>time(),
     );
 
-    if($oursAccess->update('ours_customers', $setUserInfoUpdateParams, "`token`='$token'")){
+    if($oursAccess->update('users', $setUserInfoUpdateParams, "`token`='$token'")){
         exit(json_encode(array('statusCode'=>200)));
     }else{
         exit(json_encode(array('statusCode'=>500, "details"=>"some thing went wrong! try again")));

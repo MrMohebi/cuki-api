@@ -70,7 +70,7 @@ if(isset($_POST['token']) && (isset($_POST['receiptId'])) && (isset($_POST['resE
         'paid_bank_tracking_id'=>$paidBankTrackingId,
         'payer_support_name'=>$supportPayerName,
         'payer_support_id'=>$supportPayerId,
-        'modified_date'=>time(),
+        'modified_at'=>time(),
         'to_pay_amount'=>$newToPayAmount,
         'status'=>$newStatus
     );

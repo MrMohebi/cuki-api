@@ -21,7 +21,7 @@ if(isset($_POST['token'])){
 
     $resEnglishName = $oursAccess->select('english_name','restaurants',"`token`='".$_POST['token']."'");
 
-    $catsList = $oursAccess->select("*", "food_group", "`res_english_name`='$resEnglishName' OR `res_english_name`='general'");
+    $catsList = $oursAccess->select("*", "food_groups", "`res_english_name`='$resEnglishName' OR `res_english_name`='general'");
     exit(json_encode(array('statusCode'=>200, 'data'=>$catsList ? $catsList : array())));
 
 }else{

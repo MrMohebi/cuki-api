@@ -11,14 +11,14 @@ if(isset($_POST['token'])){
     $oursAccess = new MysqldbAccess($connOurs);
 
     // is token valid and has access
-    if(!($oursAccess->isTokenValid($_POST['token'], "ours_customers"))){
+    if(!($oursAccess->isTokenValid($_POST['token'], "users"))){
         exit(json_encode(array('statusCode'=>401, "details"=>"token is not valid")));
     }
 
 
     $token =  mysqli_real_escape_string($connOurs, $_POST['token']);
 
-    $userInfo = $oursAccess->select("*", "ours_customers", "`token`='$token'");
+    $userInfo = $oursAccess->select("*", "users", "`token`='$token'");
 
 
 

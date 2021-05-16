@@ -29,7 +29,7 @@ if(isset($_POST['token'])){
     $resUserInfo = $oursAccess->select("*", "restaurants", "`token`='$token'");
 
     if(password_verify($previousPass, $resUserInfo['password'])){
-        if($oursAccess->update("restaurants", array('password'=>password_hash($newPass, PASSWORD_DEFAULT), 'modified_date'=>time()), "`token`='$token'")){
+        if($oursAccess->update("restaurants", array('password'=>password_hash($newPass, PASSWORD_DEFAULT), 'modified_at'=>time()), "`token`='$token'")){
             exit(json_encode(array('statusCode'=>200)));
         }else{
             exit(json_encode(array('statusCode'=>500, "details"=>"something went wrong during changing password")));
