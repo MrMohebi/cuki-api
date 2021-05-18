@@ -29,7 +29,7 @@ if(strlen($_POST['englishName']) > 2){
             )
         )));
     }else{
-        exit(json_encode(array('statusCode'=>500)));
+        exit(json_encode(array("data"=>$foodListArr,'statusCode'=>500)));
     }
 
 }else{
@@ -71,7 +71,7 @@ function getFoodList($resAccess, $ourAccess){
 
 function getResInfo($resAccess){
     $infoList = $resAccess->select("*", "info", false, "`info_id` DESC LIMIT 1");
-    if(!isset($infoList["info_id"]))
+    if(!isset($infoList["id"]))
         return array();
     foreach ($infoList as $key => $val){
         $infoList[$key] = is_numeric($val) ? $val+0: $val;
